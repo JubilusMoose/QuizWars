@@ -2,13 +2,14 @@
   "name": "tugofwarquiz",
   "version": "1.0.0",
   "description": "Game for teams to answer questions and move the rope to their side",
-  "main": "index.html",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jonathan Eleiott",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.6.3"
+    "angular": "^1.6.3",
+    "express": "^4.15.2"
   }
 }
