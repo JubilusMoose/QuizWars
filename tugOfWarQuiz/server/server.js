@@ -3,7 +3,7 @@ var path = require('path');
 var app = express();
 
 app.get('/', function(req, res) {
-  res.sendFile(path.resolve('../public/partials/welcome.html'));
+  res.sendFile(path.resolve('../public/index.html'));
 });
 
 app.listen(3000, function() {
