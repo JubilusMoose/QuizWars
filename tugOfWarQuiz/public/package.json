@@ -2,7 +2,6 @@
   "name": "tugofwarquiz",
   "version": "1.0.0",
   "description": "Game for teams to answer questions and move the rope to their side",
-  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

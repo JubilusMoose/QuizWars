@@ -1,10 +1,11 @@
+
 angular.module('tugOfWarApp', ['ngRoute'])
 .config(function($routeProvider) {
   $routeProvider
     .when('/newGame', {
-      redirectTo: '/newGame'
+      templateUrl: './app/newGame/newGame.html'
     })
     .otherwise({
-      redirectTo: '/home'
+      templateUrl: './app/home/home.html'
     })
 })
