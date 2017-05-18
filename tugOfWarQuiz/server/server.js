@@ -18,7 +18,7 @@ const sendResponse = function (res, statusCode, headersSent, responseMessage) {
 };
 
 app.get('/newGame', (req, res) => {
-  console.log('newGame requested');
+  console.log('get request to newGame successfully ran');
   sendResponse(res, 200, headers, 'Good to start a new game!');
 });
 
