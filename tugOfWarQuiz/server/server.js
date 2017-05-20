@@ -22,6 +22,10 @@ app.get('/newGame', (req, res) => {
   sendResponse(res, 200, headers, 'Good to start a new game!');
 });
 
+app.get('*', (req, res) => {
+  res.render('../index.html');
+})
+
 app.listen(3000, () => {
   console.log('app listening on port 3000');
 });

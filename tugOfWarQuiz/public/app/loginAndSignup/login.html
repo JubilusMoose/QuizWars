@@ -1,5 +1,6 @@
-<div>
-  <form>
+<div ng-controller="loginController">
+  <form ng-submit="loginAttempt(email)">
     <input type="text" ng-model="email" placeholder="email" required>
+    <button type="submit">Submit</button>
   </form>
 </div>
