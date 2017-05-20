@@ -1,7 +1,7 @@
 <h1>Welcome to Tug Of War!</h1>
 <img src="../../images/tugOfWarHomepage.png"></img>
-<div>
-  <form ng-submit="startNewGame(roomName)" ng-controller="homeController">
+<div ng-controller="homeController">
+  <form ng-submit="startNewGame(roomName)">
     <input type="text" ng-model="roomName" placeholder="Enter Room Name">
       <button type="submit">Submit</button>
     </input>
