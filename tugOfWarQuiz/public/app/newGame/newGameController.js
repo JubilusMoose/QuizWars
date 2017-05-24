@@ -1,3 +1,5 @@
 angular.module('tugOfWarApp').controller('newGameController', function($scope) {
-  console.log('newGameController up and running');
+  $scope.teamOne = ['jon', 'jimmy'];
+  $scope.teamTwo = ['jane', 'jasmine'];
+
 })
