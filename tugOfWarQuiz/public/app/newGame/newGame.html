@@ -1,6 +1,15 @@
-<div ng-controller="newGameController">
-  <ul>
-    <li ng-repeat="name in teamOne">{{ name }}</li>
-    <li ng-repeat="name in teamTwo">{{ name }}</li>
-  </ul>
+<div class="wrapper">
+  <div ng-controller="newGameController" class=leftCol>
+    <ul>
+      <li ng-repeat="name in teamOne">{{ name }}</li>
+    </ul>
+  </div>
+  <div class="middleCol">
+    Game
+  </div>
+  <div class="rightCol">
+    <ul>
+      <li ng-repeat="name in teamTwo">{{ name }}</li>
+    </ul>
+  </div>
 </div>

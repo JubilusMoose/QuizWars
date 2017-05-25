@@ -1,0 +1,20 @@
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  float: left;
+  border-width: 2px;
+  border-style: solid;
+}
+.leftCol {
+  width: 30%;
+  float: left;
+}
+.middleCol {
+  width: 40%;
+  float: left;
+}
+.rightCol {
+  width: 30%;
+  float: left;
+}
