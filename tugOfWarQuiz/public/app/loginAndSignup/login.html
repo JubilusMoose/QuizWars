@@ -1,7 +1,9 @@
-<div ng-controller="loginController">
-  <form ng-submit="loginAttempt(email, password)">
-    <input type="text" ng-model="email" placeholder="email" required>
-    <input type="text" ng-model="password" placeholder="password" required>
+<div ng-controller="loginController" class="loginBox">
+  <form ng-submit="loginAttempt(email, password, access)">
+    <input type="text" ng-model="email" placeholder="email" class="loginInput" required>
+    <input type="text" ng-model="password" placeholder="password" class="loginInput" required><br>
+    <input type="radio" ng-model="access" value="student" checked>Student
+    <input type="radio" ng-model="access" value="teacher">Teacher<br>
     <button type="submit">Submit</button>
   </form>
 </div>
