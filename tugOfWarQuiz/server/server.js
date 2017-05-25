@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.set('views', __dirname + '/../public');
-app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 
-app.use(express.static(path.join(__dirname, '/../public')));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -23,7 +23,7 @@ app.get('/newGame', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.render('../index');
+  res.render('index.html');
 })
 
 app.listen(3000, () => {
