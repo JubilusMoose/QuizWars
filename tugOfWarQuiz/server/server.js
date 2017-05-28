@@ -17,6 +17,11 @@ const sendResponse = function (res, statusCode, headersSent, responseMessage) {
   res.end(responseMessage);
 };
 
+app.post('/login', (req, res) => {
+  console.log('save user to database');
+  sendResponse(res, 200, headers, 'Login successful');
+})
+
 app.get('/newGame', (req, res) => {
   console.log('get request to newGame successfully ran');
   sendResponse(res, 200, headers, 'Good to start a new game!');

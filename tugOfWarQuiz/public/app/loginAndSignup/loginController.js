@@ -2,8 +2,14 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
   console.log('inside login controller');
   $scope.access = 'student';
   $scope.loginAttempt = function(email, password) {
-      console.log(email, password, $scope.access)
-      $rootScope.loggedIn = true;
-      $location.path('/home')
+    var access = $scope.access;
+    axios.post('/login', {
+      email,
+      password,
+      access
+    })
+    console.log(email, password, access)
+    $rootScope.loggedIn = true;
+    $location.path('/home')
   }
 });

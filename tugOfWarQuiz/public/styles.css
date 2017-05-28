@@ -1,10 +1,14 @@
 .loginBox {
+  margin: auto;
   width: 30%;
   border-width: 1px;
   border-style: solid;
   padding: 5px;
 }
 .loginInput {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   width: 60%;
 }
 .wrapper {
