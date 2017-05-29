@@ -17,4 +17,9 @@ angular.module('tugOfWarApp').controller('homeController', function($rootScope, 
         console.log(err);
       })
   }
+
+  $scope.logout = () => {
+    $rootScope.loggedIn = false;
+    $location.path('/login');
+  }
 })
