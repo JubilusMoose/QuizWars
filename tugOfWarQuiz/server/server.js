@@ -18,8 +18,25 @@ const sendResponse = function (res, statusCode, headersSent, responseMessage) {
 };
 
 app.post('/login', (req, res) => {
-  console.log('save user to database');
-  sendResponse(res, 200, headers, 'Login successful');
+  console.log('check user in database', req.body);
+  if(req.body.access === 'teacher') {
+    sendResponse(res, 200, headers, 'Teacher login successful');
+  } else if (req.body.access === 'student') {
+    sendResponse(res, 200, headers, 'Student login successful');
+  } else {
+    sendResponse(res, 400, headers, 'Login unsuccessful')
+  }
+})
+
+app.post('/signup', (req, res) => {
+  console.log('save user to database', req.body);
+  if(req.body.access === 'teacher') {
+    sendResponse(res, 200, headers, 'Teacher login successful');
+  } else if (req.body.access === 'student') {
+    sendResponse(res, 200, headers, 'Student login successful');
+  } else {
+    sendResponse(res, 400, headers, 'Login unsuccessful')
+  }
 })
 
 app.get('/newGame', (req, res) => {
