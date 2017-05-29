@@ -12,4 +12,16 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
     $rootScope.loggedIn = true;
     $location.path('/home')
   }
+
+  $scope.signupAttempt = function(email, password) {
+    var access = $scope.access;
+    axios.post('/signup', {
+      email,
+      password,
+      access
+    })
+    console.log(email, password, access)
+    $rootScope.loggedIn = true;
+    $location.path('/home')
+  }
 });
