@@ -20,14 +20,20 @@
   border-style: solid;
 }
 .leftCol {
+  text-align: center;
   width: 30%;
   float: left;
 }
 .middleCol {
+  text-align: center;
   width: 40%;
   float: left;
 }
 .rightCol {
+  text-align: center;
   width: 30%;
   float: left;
+}
+li {
+  text-align: left;
 }

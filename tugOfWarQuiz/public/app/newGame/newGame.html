@@ -1,5 +1,6 @@
 <div class="wrapper">
   <div ng-controller="newGameController" class=leftCol>
+    <h3>{{ teamOneName }}</h3>
     <ul>
       <li ng-repeat="name in teamOne">{{ name }}</li>
     </ul>
@@ -8,6 +9,7 @@
     Game
   </div>
   <div class="rightCol">
+    <h3>{{ teamTwoName }}</h3>
     <ul>
       <li ng-repeat="name in teamTwo">{{ name }}</li>
     </ul>
