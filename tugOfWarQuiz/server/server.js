@@ -31,11 +31,11 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
   console.log('save user to database', req.body);
   if(req.body.access === 'teacher') {
-    sendResponse(res, 200, headers, 'Teacher login successful');
+    sendResponse(res, 200, headers, 'Teacher sign up successful');
   } else if (req.body.access === 'student') {
-    sendResponse(res, 200, headers, 'Student login successful');
+    sendResponse(res, 200, headers, 'Student sign up successful');
   } else {
-    sendResponse(res, 400, headers, 'Login unsuccessful')
+    sendResponse(res, 400, headers, 'Sign up unsuccessful')
   }
 })
 
