@@ -1,16 +1,32 @@
 .loginBox {
   margin: auto;
   width: 30%;
-  border-width: 1px;
-  border-style: solid;
   padding: 5px;
 }
-.loginInput {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 60%;
+
+.loginForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
+
+.loginInput {
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  width: 80%;
+}
+
+.radioBox {
+  padding: 5px;
+  margin: 5px;
+}
+
+input {
+  margin: 5px;
+}
+
 .wrapper {
   width: 100%;
   margin: 0 auto;
@@ -19,21 +35,25 @@
   border-width: 2px;
   border-style: solid;
 }
+
 .leftCol {
   text-align: center;
   width: 30%;
   float: left;
 }
+
 .middleCol {
   text-align: center;
   width: 40%;
   float: left;
 }
+
 .rightCol {
   text-align: center;
   width: 30%;
   float: left;
 }
+
 li {
   text-align: left;
 }
