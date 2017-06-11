@@ -1,6 +1,18 @@
+body {
+  background: linear-gradient(270deg, #ff0000, #ffffff);
+  background-size: 400%;
+  animation-name: mainBackgroundGradient;
+  animation-duration: 7s ease infinite;
+}
+
+@keyframes mainBackgroundGradient {
+  0% {background-position:0% 50%}
+  50% {background-position:100% 50%}
+  100% {background-position:0% 50%}
+}
+
 .loginBox {
   margin: auto;
-  width: 30%;
   padding: 5px;
 }
 
@@ -12,10 +24,10 @@
 }
 
 .loginInput {
+  width: 50%;
   margin: 5px;
   padding: 5px;
   text-align: center;
-  width: 80%;
 }
 
 .radioBox {
@@ -25,6 +37,11 @@
 
 input {
   margin: 5px;
+}
+
+.homeBody {
+  background: gray;
+  font-size: 40px;
 }
 
 .wrapper {
