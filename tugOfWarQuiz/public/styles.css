@@ -20,6 +20,13 @@
   height: 100vh;
 }
 
+.loginDiv {
+  width: 50%;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+}
+
 .loginInput {
   width: 50%;
   margin: 5px;

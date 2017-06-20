@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
+
+// Database setup and helpers
+const setup = require('./db/setup');
 const api = require('./db/api');
 
 app.set('views', __dirname + '/../public');
@@ -19,12 +22,17 @@ const sendResponse = function (res, statusCode, headersSent, responseMessage) {
   res.end(responseMessage);
 };
 
+app.get('/create', (req, res) => {
+  console.log('create requested');
+  setup.create(req, res);
+})
+
 app.post('/login', (req, res) => {
   console.log('check user in database', req.body);
   if(req.body.access === 'teacher') {
     sendResponse(res, 200, headers, 'Teacher login successful');
   } else if (req.body.access === 'student') {
-    api.students(req, res);
+    api.loginStudent(req, res);
   } else {
     sendResponse(res, 400, headers, 'Login unsuccessful')
   }
