@@ -2,7 +2,7 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
   console.log('inside login controller');
   $scope.access = 'student';
   $scope.loginAttempt = function(email, password) {
-    if(!email.contains('@')) {
+    if(!email) {
       console.log('not an email address');
       $location.path('/login');
     } else {

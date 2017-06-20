@@ -9,3 +9,5 @@ models.Student = bookshelf.Model.extend({
 models.Teacher = bookshelf.Model.extend({
   tableName: 'teachers'
 })
+
+module.exports = models;
