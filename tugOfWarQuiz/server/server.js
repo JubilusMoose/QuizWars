@@ -3,9 +3,11 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
+const api = require('./db/api');
 
 app.set('views', __dirname + '/../public');
-app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -22,7 +24,7 @@ app.post('/login', (req, res) => {
   if(req.body.access === 'teacher') {
     sendResponse(res, 200, headers, 'Teacher login successful');
   } else if (req.body.access === 'student') {
-    sendResponse(res, 200, headers, 'Student login successful');
+    api.students(req, res);
   } else {
     sendResponse(res, 400, headers, 'Login unsuccessful')
   }
