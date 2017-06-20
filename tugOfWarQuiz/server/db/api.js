@@ -2,13 +2,18 @@ const headers = require('../headers');
 const { Student, Teacher } = require('./models');
 
 module.exports = {
-  students: (req, res) => {
+
+
+  loginStudent: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url} (api.default)`);
-    new Student()
-    .fetchAll()
-    .then((students) => {
+    new Student({
+      email: req.body.email,
+      password: req.body.password
+    })
+    .fetch()
+    .then((student) => {
       console.log('students fetched');
-      res.send(students.toJSON())
+      res.send(student);
     })
     .catch((err) => {
       console.log('error fetching students', err);

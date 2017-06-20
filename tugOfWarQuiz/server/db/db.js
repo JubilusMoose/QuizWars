@@ -5,7 +5,7 @@ const knex = require('knex')({
     user: 'root',
     password: 'pass', // set a password if needed
     // password: '' // set a password if needed // pass
-    database: 'tugOfWar',
+    database: 'tugOfWar', // create database in server
     charset: 'utf8'
   }
 })

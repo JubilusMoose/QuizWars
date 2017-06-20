@@ -12,9 +12,30 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
         password,
         access
       })
-      console.log(email, password, access)
-      $rootScope.loggedIn = true;
-      $location.path('/home');
+      .then((resp) => {
+        if(resp.data) {
+          $rootScope.loggedIn = true;
+          $location.path('/home');
+          $rootScope.$apply();
+        } else {
+          console.log('student not in system');
+          const inputText = document.querySelectorAll('.loginInput');
+          const loginDiv = document.querySelector('.loginDiv');
+          var para = document.createElement("P");
+          var failMessage = document.createTextNode("Failed to log in");
+          para.appendChild(failMessage);
+          loginDiv.insertBefore(para, loginDiv.firstChild)
+          
+          inputText.forEach((ele) => {
+            ele.value = '';
+          });
+
+          $location.path('/login');
+        }
+      })
+      .catch((err) => {
+        console.log('error retrieving student', err);
+      })
     }
   }
 
