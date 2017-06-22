@@ -21,15 +21,18 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
           console.log('student not in system');
           const inputText = document.querySelectorAll('.loginInput');
           const loginDiv = document.querySelector('.loginDiv');
-          var para = document.createElement("P");
-          var failMessage = document.createTextNode("Incorrect username or password");
+          const para = document.createElement("P");
+          const failMessage = document.createTextNode("Incorrect username or password");
           
           inputText.forEach((ele) => {
             ele.value = '';
           });
           
           para.appendChild(failMessage);
-          loginDiv.insertBefore(para, loginDiv.firstChild);
+
+          if(loginDiv.childNodes[0].innerText !== "Incorrect username or password") {
+            loginDiv.insertBefore(para, loginDiv.firstChild);
+          }
 
           $location.path('/login');
         }
