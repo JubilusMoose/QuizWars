@@ -7,6 +7,7 @@ const app = express();
 // Database setup and helpers
 const setup = require('./db/setup');
 const api = require('./db/api');
+const helpers = require('./helpers');
 
 app.set('views', __dirname + '/../public');
 app.engine('html', require('ejs').renderFile);
@@ -32,7 +33,7 @@ app.post('/login', (req, res) => {
   if(req.body.access === 'teacher') {
     sendResponse(res, 200, headers, 'Teacher login successful');
   } else if (req.body.access === 'student') {
-    api.loginStudent(req, res);
+    helpers.loginStudent(req, res);
   } else {
     sendResponse(res, 400, headers, 'Login unsuccessful')
   }
@@ -43,7 +44,7 @@ app.post('/signup', (req, res) => {
   if(req.body.access === 'teacher') {
     sendResponse(res, 200, headers, 'Teacher sign up successful');
   } else if (req.body.access === 'student') {
-    sendResponse(res, 200, headers, 'Student sign up successful');
+    helpers.signupStudent(req, res);
   } else {
     sendResponse(res, 400, headers, 'Sign up unsuccessful')
   }

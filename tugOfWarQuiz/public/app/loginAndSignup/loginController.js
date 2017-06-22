@@ -22,13 +22,14 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
           const inputText = document.querySelectorAll('.loginInput');
           const loginDiv = document.querySelector('.loginDiv');
           var para = document.createElement("P");
-          var failMessage = document.createTextNode("Failed to log in");
-          para.appendChild(failMessage);
-          loginDiv.insertBefore(para, loginDiv.firstChild)
+          var failMessage = document.createTextNode("Incorrect username or password");
           
           inputText.forEach((ele) => {
             ele.value = '';
           });
+          
+          para.appendChild(failMessage);
+          loginDiv.insertBefore(para, loginDiv.firstChild);
 
           $location.path('/login');
         }
