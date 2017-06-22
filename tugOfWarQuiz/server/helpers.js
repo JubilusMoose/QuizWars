@@ -2,7 +2,7 @@ const headers = require('./headers');
 const { Student, Teacher } = require('./db/models');
 
 
-const sendResponse = function (res, statusCode, headersSent, responseMessage) {
+const sendResponse = (res, statusCode, headersSent, responseMessage) => {
   console.log(responseMessage);
   res.writeHead(statusCode, headersSent);
   res.end(responseMessage);

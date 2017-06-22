@@ -17,17 +17,23 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const sendResponse = function (res, statusCode, headersSent, responseMessage) {
+const sendResponse = (res, statusCode, headersSent, responseMessage) => {
   console.log(responseMessage);
   res.writeHead(statusCode, headersSent);
   res.end(responseMessage);
 };
 
-app.get('/create', (req, res) => {
-  console.log('create requested');
-  setup.create(req, res);
+// Admin only calls... Delete some when going live
+app.get('/resetDB', (req, res) => {
+  console.log('resetDB requested');
+  setup.resetDB(req, res);
 })
 
+app.get('/allStudents', (req, res) => {
+  api.retrieveStudentList(req, res);
+})
+
+// Calls from FE
 app.post('/login', (req, res) => {
   console.log('check user in database', req.body);
   if(req.body.access === 'teacher') {
