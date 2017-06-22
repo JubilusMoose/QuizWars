@@ -18,7 +18,7 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
           $location.path('/home');
           $rootScope.$apply();
         } else {
-          console.log('student not in system');
+          console.log('student/teacher not in system');
           const inputText = document.querySelectorAll('.loginInput');
           const loginDiv = document.querySelector('.loginDiv');
           const para = document.createElement("P");
@@ -29,6 +29,10 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
           });
           
           para.appendChild(failMessage);
+
+          if(loginDiv.childNodes[0].innerText === "Email is already in use"){
+            loginDiv.removeChild(loginDiv.childNodes[0]);
+          } 
 
           if(loginDiv.childNodes[0].innerText !== "Incorrect username or password") {
             loginDiv.insertBefore(para, loginDiv.firstChild);
@@ -50,8 +54,37 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
       password,
       access
     })
-    console.log(email, password, access)
-    $rootScope.loggedIn = true;
-    $location.path('/home')
+    .then((resp) => {
+      console.log('resp.data', resp.data);
+      if(resp.data !== 'email in system') {
+        $rootScope.loggedIn = true;
+        $location.path('/home')
+      } else {
+        console.log('Student/Teacher email already in use');
+        const inputText = document.querySelectorAll('.loginInput');
+        const loginDiv = document.querySelector('.loginDiv');
+        const para = document.createElement("P");
+        const failMessage = document.createTextNode("Email is already in use");
+        
+        inputText.forEach((ele) => {
+          ele.value = '';
+        });
+        
+        para.appendChild(failMessage);
+
+        if(loginDiv.childNodes[0].innerText === "Incorrect username or password"){
+            loginDiv.removeChild(loginDiv.childNodes[0]);
+          } 
+
+        if(loginDiv.childNodes[0].innerText !== "Email is already in use") {
+          loginDiv.insertBefore(para, loginDiv.firstChild);
+        }
+
+        $location.path('/login');
+      }
+    })
+    .catch((err) => {
+      console.log('error signing up', err);
+    })
   }
 });
