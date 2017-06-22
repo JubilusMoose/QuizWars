@@ -33,11 +33,19 @@ app.get('/allStudents', (req, res) => {
   api.retrieveStudentList(req, res);
 })
 
+app.get('/allTeachers', (req, res) => {
+  api.retrieveTeacherList(req, res);
+})
+
+app.get('/allPeople', (req, res) => {
+  api.retrieveAll(req, res);
+})
+
 // Calls from FE
 app.post('/login', (req, res) => {
   console.log('check user in database', req.body);
   if(req.body.access === 'teacher') {
-    sendResponse(res, 200, headers, 'Teacher login successful');
+    helpers.loginTeacher(req, res);
   } else if (req.body.access === 'student') {
     helpers.loginStudent(req, res);
   } else {
@@ -48,7 +56,7 @@ app.post('/login', (req, res) => {
 app.post('/signup', (req, res) => {
   console.log('save user to database', req.body);
   if(req.body.access === 'teacher') {
-    sendResponse(res, 200, headers, 'Teacher sign up successful');
+    helpers.signupTeacher(req, res);
   } else if (req.body.access === 'student') {
     helpers.signupStudent(req, res);
   } else {

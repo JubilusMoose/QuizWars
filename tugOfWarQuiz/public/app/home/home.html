@@ -1,12 +1,17 @@
-<div class="homeBox">
-  <h1>Welcome to Tug Of War!</h1>
-  <img src="../../images/tugOfWarHomepage.png"></img>
-  <div ng-controller="homeController">
-    <form ng-submit="startNewGame(roomName)">
-      <input type="text" ng-model="roomName" placeholder="Enter Room Name">
-        <button type="submit">Submit</button>
-      </input>
-    </form>
-    <button ng-click="logout()">Log out</button>
+<div ng-controller="homeController" class="homeBox">
+  <div>
+    <div>
+      <h1>Welcome to Tug Of War {{ name }}!</h1>
+      <button ng-click="changeName()">Change Name</button>
+    </div>
+    <img src="../../images/tugOfWarHomepage.png"></img>
+    <div>
+      <form ng-submit="startNewGame(roomName)">
+        <input type="text" ng-model="roomName" placeholder="Enter Room Name">
+          <button type="submit">Submit</button>
+        </input>
+      </form>
+      <button ng-click="logout()">Log out</button>
+    </div>
   </div>
 </div>

@@ -1,4 +1,10 @@
 angular.module('tugOfWarApp').controller('homeController', function($rootScope, $scope, $location) {
+  $scope.name = "Friend";
+
+  $scope.changeName = () => {
+    $location.path('/profile');
+  }
+
   $scope.displayTeams = function(teamOne, teamTwo) {
     $rootScope.teamOne = teamOne;
     $rootScope.teamTwo = teamTwo;
@@ -9,7 +15,6 @@ angular.module('tugOfWarApp').controller('homeController', function($rootScope, 
       .then(function(res) {
         console.log(`new game ready for ${roomName}!`, res);
         $scope.displayTeams(['jon', 'jimmy'], ['jane', 'jasmine'])
-        $rootScope.newGame = true;
         $location.path('/newGame');
         $rootScope.$apply();
       })

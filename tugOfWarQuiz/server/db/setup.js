@@ -22,7 +22,7 @@ module.exports = {
     .then(() => {
       console.log('return new Student');
       return new Student({
-        email: 'test@aol.com',
+        email: 'student@aol.com',
         password: 'test',
         name: 'Johnny Test'
       })
@@ -33,6 +33,7 @@ module.exports = {
     .then(() => {
       console.log('return new Teacher');
       return new Teacher({
+        email: 'teacher@aol.com',
         name: 'Mr Anderson',
         password: 'test'
       })
