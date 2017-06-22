@@ -9,22 +9,23 @@ angular.module('tugOfWarApp')
         templateUrl: './app/loginAndSignup/login.html',
         controller: 'loginController'
       })
+      .when('/profile', {
+        templateUrl: './app/profile/profile.html',
+        controller: 'profileController'
+      })
       .otherwise({
         templateUrl: './app/home/home.html',
         controller: 'homeController'
       })
   })
   .run(($rootScope, $location) => {
-    console.log('newGame', $rootScope.newGame);
-    console.log('logged in', $rootScope.loggedIn);
+    // Delete this after testing
+    // $rootScope.loggedIn = true;
 
     window.checkLoggedIn = function() {
-      if($rootScope.newGame) {
-        $location.path('/newGame');
-      } else if ($rootScope.loggedIn) {
-        $location.path('/')
-      } else {
-        $location.path('/login')
+      console.log('checkedLoggedIn', $rootScope.loggedIn);
+      if(!$rootScope.loggedIn) {
+        $location.path('/login');
       }
     }
 
