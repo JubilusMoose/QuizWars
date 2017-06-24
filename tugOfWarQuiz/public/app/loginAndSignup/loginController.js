@@ -1,5 +1,4 @@
 angular.module('tugOfWarApp').controller('loginController', function($rootScope, $scope, $location) {
-  console.log('inside login controller');
   $scope.access = 'student';
   $scope.loginAttempt = function(email, password) {
     if(!email) {

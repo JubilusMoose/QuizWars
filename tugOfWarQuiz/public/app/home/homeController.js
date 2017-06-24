@@ -1,7 +1,7 @@
 angular.module('tugOfWarApp').controller('homeController', function($rootScope, $scope, $location) {
-  $scope.name = "Friend";
+  $scope.name = $rootScope.name || "Friend";
 
-  $scope.changeName = () => {
+  $scope.changeNameButton = () => {
     $location.path('/profile');
   }
 
