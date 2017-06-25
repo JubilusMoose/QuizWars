@@ -1,5 +1,15 @@
-<div>
-  <p>Welcome to your profile {{ name || "Friend" }}!</p>
-  <input type="text" ng-model="name" placeholder="New Name">
-  <button type="submit" ng-click="changeName(name)">Change Name</button>
+<div ng-controller="profileController" class="profileBox">
+  <div>
+    <div>
+      <p>Welcome to your profile {{ name || "Friend"}}!</p>
+    </div>
+    <div>
+      <input type="text" class="newName" ng-model="name" placeholder="New Name">
+      <button type="submit" ng-click="changeName(name)">Change Name</button>
+    </div>
+    <div>
+      <button type="" ng-click="goToHomePage()">Go To Home Page</button>
+      <button type="" ng-click="logout()">Log Out</button>
+    </div>
+  </div>
 </div>

@@ -33,6 +33,10 @@
   height: 100vh;
 }
 
+.loginTitle {
+  font-size: 40px;
+}
+
 .loginDiv {
   width: 50%;
   margin: 5px;
@@ -84,6 +88,10 @@
   animation: blueGradient 10s ease infinite;
 }
 
+.homeTitle {
+  font-size: 40px;
+}
+
 .wrapper {
   width: 100%;
   margin: 0 auto;
@@ -113,4 +121,32 @@
 
 li {
   text-align: left;
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes AnimationName { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.profileBox {  
+  background: purple;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
 }

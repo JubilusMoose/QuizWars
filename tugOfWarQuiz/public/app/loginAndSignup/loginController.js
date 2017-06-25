@@ -36,8 +36,6 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
           if(loginDiv.childNodes[0].innerText !== "Incorrect username or password") {
             loginDiv.insertBefore(para, loginDiv.firstChild);
           }
-
-          $location.path('/login');
         }
       })
       .catch((err) => {
@@ -57,7 +55,8 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
       console.log('resp.data', resp.data);
       if(resp.data !== 'email in system') {
         $rootScope.loggedIn = true;
-        $location.path('/home')
+        $location.path('/home');
+        $rootScope.$apply();
       } else {
         console.log('Student/Teacher email already in use');
         const inputText = document.querySelectorAll('.loginInput');

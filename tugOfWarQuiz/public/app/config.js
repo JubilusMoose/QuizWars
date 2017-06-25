@@ -9,13 +9,17 @@ angular.module('tugOfWarApp')
         templateUrl: './app/loginAndSignup/login.html',
         controller: 'loginController'
       })
+      .when('/home', {
+        templateUrl: './app/home/home.html',
+        controller: 'homeController'
+      })
       .when('/profile', {
         templateUrl: './app/profile/profile.html',
         controller: 'profileController'
       })
       .otherwise({
-        templateUrl: './app/home/home.html',
-        controller: 'homeController'
+        templateUrl: './app/profile/profile.html',
+        controller: 'profileController'
       })
   })
   .run(($rootScope, $location) => {
