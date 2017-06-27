@@ -49,12 +49,35 @@
   margin: 5px;
   padding: 5px;
   text-align: center;
+  border-radius: 5px;
 }
 
-.radioBox {
+.emailInput {
+  margin-left: 29px;
+}
+
+.loginButton {
+  width: 25%;
+  font-size: 20px;
+  border-radius: 10px;
+  color: white;
+
+  background: linear-gradient(270deg, black, green);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
+}
+
+.login {
+  margin-left: 70px;
+}
+
+/*.radioBox {
   padding: 5px;
   margin: 5px;
-}
+}*/
 
 .homeBox {
   color: white;
@@ -115,17 +138,4 @@ li {
   align-items: center;
   height: 100vh;
   text-align: center;
-}
-
-.loginButton {
-  font-size: 20px;
-  border-radius: 10px;
-  color: white;
-
-  background: linear-gradient(270deg, black, green);
-  background-size: 400% 400%;
-
-  -webkit-animation: gradientChange 10s ease infinite;
-  -moz-animation: gradientChange 10s ease infinite;
-  animation: gradientChange 10s ease infinite;
 }

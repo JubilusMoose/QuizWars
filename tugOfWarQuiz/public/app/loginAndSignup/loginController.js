@@ -1,20 +1,26 @@
-angular.module('tugOfWarApp').controller('loginController', function($rootScope, $scope, $location) {
-  $scope.access = 'student';
+angular.module('tugOfWarApp').controller('loginController', function($cookies, $rootScope, $scope, $location) {
+  // $scope.access = 'student';
   $scope.loginAttempt = function(email, password) {
     if(!email) {
       console.log('not an email address');
       $location.path('/login');
     } else {
-      var access = $scope.access;
+      // var access = $scope.access;
       axios.post('/login', {
         email,
-        password,
-        access
+        password
       })
       .then((resp) => {
         if(resp.data) {
-          $rootScope.loggedIn = true;
+          var expireDate = new Date();
+          expireDate.setDate(expireDate.getDate() + 1);
+
+          // cookie stuff
+          $cookies.put('email', email, {expires: expireDate});
+          $cookies.put('password', password);
+
           $location.path('/home');
+
           $rootScope.$apply();
         } else {
           console.log('student/teacher not in system');
@@ -45,16 +51,21 @@ angular.module('tugOfWarApp').controller('loginController', function($rootScope,
   }
 
   $scope.signupAttempt = function(email, password) {
-    var access = $scope.access;
+    // var access = $scope.access;
     axios.post('/signup', {
       email,
-      password,
-      access
+      password
     })
     .then((resp) => {
       console.log('resp.data', resp.data);
       if(resp.data !== 'email in system') {
-        $rootScope.loggedIn = true;
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() + 1);
+
+        // cookie stuff
+        $cookies.put('email', email, {expires: expireDate});
+        $cookies.put('password', password);
+
         $location.path('/home');
         $rootScope.$apply();
       } else {

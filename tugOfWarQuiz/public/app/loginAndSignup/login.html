@@ -1,15 +1,15 @@
 <div ng-controller="loginController" class="loginBox">
   <form class="loginForm">
     <div class="loginDiv">
-      <p class="loginTitle">Welcome To Quiz Wars!</p>
-      <input type="email" ng-model="email" placeholder="JohnDoe123@email.com" class="loginInput" required>
-      <input type="password" ng-model="password" placeholder="password" class="loginInput" required>
+      <p class="loginTitle">Welcome To Quiz Wars!</p></br>
+      Email: <input type="email" ng-model="email" placeholder="JohnDoe123@email.com" class="loginInput emailInput" required></br>
+      Password: <input type="password" ng-model="password" placeholder="password" class="loginInput" required>
     <div>
-    <div class="radioBox">
+    <!-- <div class="radioBox">
       <input type="radio" ng-model="access" value="student" checked> Student
       <input type="radio" ng-model="access" value="teacher"> Teacher<br>
-    </div>
-    <button class="loginButton" type="submit" ng-click="loginAttempt(email, password, access)">Log In</button>
-    <button class="loginButton" type="submit" ng-click="signupAttempt(email, password, access)">Sign Up</button>
+    </div> -->
+    <button class="loginButton login" type="submit" ng-click="loginAttempt(email, password)">Log In</button>
+    <button class="loginButton" type="submit" ng-click="signupAttempt(email, password)">Sign Up</button>
   </form>
 </div>

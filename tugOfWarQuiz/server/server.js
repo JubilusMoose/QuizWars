@@ -2,6 +2,7 @@ const headers = require('./headers');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+// const sessions= require('client-sessions');
 const app = express();
 
 // Database setup and helpers
@@ -16,6 +17,12 @@ app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// app.use(sessions({
+//   cookieName: 'session',
+//   secret: 'akjhahaeo039u40qfewhroin30934noewv30v34f',
+//   duration: 30 * 60 * 1000,
+//   activeDuration: 5 * 60 * 1000
+// }));
 
 const sendResponse = (res, statusCode, headersSent, responseMessage) => {
   console.log(responseMessage);
@@ -29,39 +36,19 @@ app.get('/resetDB', (req, res) => {
   setup.resetDB(req, res);
 })
 
-app.get('/allStudents', (req, res) => {
-  api.retrieveStudentList(req, res);
-})
-
-app.get('/allTeachers', (req, res) => {
-  api.retrieveTeacherList(req, res);
-})
-
-app.get('/allPeople', (req, res) => {
+app.get('/allUsers', (req, res) => {
   api.retrieveAll(req, res);
 })
 
 // Calls from FE
 app.post('/login', (req, res) => {
   console.log('check user in database', req.body);
-  if(req.body.access === 'teacher') {
-    helpers.loginTeacher(req, res);
-  } else if (req.body.access === 'student') {
-    helpers.loginStudent(req, res);
-  } else {
-    sendResponse(res, 400, headers, 'Login unsuccessful')
-  }
+  helpers.login(req, res);
 })
 
 app.post('/signup', (req, res) => {
   console.log('save user to database', req.body);
-  if(req.body.access === 'teacher') {
-    helpers.signupTeacher(req, res);
-  } else if (req.body.access === 'student') {
-    helpers.signupStudent(req, res);
-  } else {
-    sendResponse(res, 400, headers, 'Sign up unsuccessful')
-  }
+  helpers.signup(req, res);
 })
 
 app.get('/newGame', (req, res) => {
