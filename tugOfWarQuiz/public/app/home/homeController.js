@@ -1,4 +1,4 @@
-angular.module('tugOfWarApp').controller('homeController', function($rootScope, $scope, $location) {
+angular.module('tugOfWarApp').controller('homeController', function($cookies, $rootScope, $scope, $location) {
   $scope.name = $rootScope.name || "Friend";
 
   $scope.changeNameButton = () => {
@@ -23,8 +23,11 @@ angular.module('tugOfWarApp').controller('homeController', function($rootScope, 
       })
   }
 
-  $scope.logout = () => {
-    $rootScope.loggedIn = false;
+  $scope.logout = () => { 
+    for(var x in $cookies.getAll()  ) { 
+      $cookies.remove(x); 
+    }
+
     $location.path('/login');
   }
 })

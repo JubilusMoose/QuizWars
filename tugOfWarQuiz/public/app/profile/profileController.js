@@ -16,7 +16,10 @@ angular.module('tugOfWarApp').controller('profileController', function($rootScop
   }
 
   $scope.logout = () => {
-    $rootScope.loggedIn = false;
+    for(var x in $cookies.getAll()  ) { 
+      $cookies.remove(x); 
+    }
+    
     $location.path('/login');
     $rootScope.apply();
   }

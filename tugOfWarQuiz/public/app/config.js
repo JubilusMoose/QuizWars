@@ -18,17 +18,17 @@ angular.module('tugOfWarApp')
         controller: 'profileController'
       })
       .otherwise({
-        templateUrl: './app/profile/profile.html',
-        controller: 'profileController'
+        templateUrl: './app/home/home.html',
+        controller: 'homeController'
       })
   })
-  .run(($rootScope, $location) => {
+  .run(($cookies, $rootScope, $location) => {
     // Delete this after testing
     // $rootScope.loggedIn = true;
 
     window.checkLoggedIn = function() {
-      console.log('checkedLoggedIn', $rootScope.loggedIn);
-      if(!$rootScope.loggedIn) {
+      console.log('checkedLoggedIn', $cookies.get('email'));
+      if($cookies.get('email') === undefined) {
         $location.path('/login');
       }
     }

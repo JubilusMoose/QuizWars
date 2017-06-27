@@ -1,2 +1,2 @@
 
-angular.module('tugOfWarApp', ['ngRoute'])
+angular.module('tugOfWarApp', ['ngCookies', 'ngRoute'])

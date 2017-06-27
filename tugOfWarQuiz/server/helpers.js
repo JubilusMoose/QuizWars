@@ -1,5 +1,6 @@
 const headers = require('./headers');
-const { Student, Teacher } = require('./db/models');
+// const sessions= require('client-sessions');
+const { User } = require('./db/models');
 
 
 const sendResponse = (res, statusCode, headersSent, responseMessage) => {
@@ -10,108 +11,43 @@ const sendResponse = (res, statusCode, headersSent, responseMessage) => {
 
 module.exports = {
 
-  signupStudent: (req, res) => {
-    console.log(`Serving ${req.method} request for ${req.url} (helpers.signupStudent)`);
+  signup: (req, res) => {
+    console.log(`Serving ${req.method} request for ${req.url} (helpers.signup)`);
     const email = req.body.email;
     const password = req.body.password;
 
-    new Student()
-    .where('email', email)
-    .fetch()
-    .then((student) => {
-      console.log('student', student)
-      if(student) {
-        sendResponse(res, 200, headers, 'email in system');
-      } else {
-        new Student({
-          email,
-          password
-        })
-        .save()
-        .then((model) => {
-          console.log('student successfully signed up');
-          sendResponse(res, 200, headers, JSON.stringify(model));
-        })
-        .catch((err) => {
-          console.log('error in signupStudent', err);
-          sendResponse(res, 400, headers, JSON.stringify(err));
-        })
-      }
+    new User({
+      email,
+      password
+    })
+    .save()
+    .then((user) => {
+      console.log('user successfully signed up');
+      // req.session.user = user;
+      sendResponse(res, 200, headers, JSON.stringify(user));
     })
     .catch((err) => {
-      console.log('error in signupStudent', err);
-      sendResponse(res, 400, headers, JSON.stringify(err));
+      console.log('error in signup', err);
+      sendResponse(res, 200, headers, 'email in system');
     })
   },
 
-  signupTeacher: (req, res) => {
-    console.log(`Serving ${req.method} request for ${req.url} (helpers.signupTeacher)`);
+  login: (req, res) => {
+    console.log(`Serving ${req.method} request for ${req.url} (helpers.login)`);
     const email = req.body.email;
     const password = req.body.password;
-
-    new Teacher()
-    .where('email', email)
-    .fetch()
-    .then((teacher) => {
-      console.log('teacher', teacher)
-      if(teacher) {
-        sendResponse(res, 200, headers, 'email in system');
-      } else {
-        new Teacher({
-          email,
-          password
-        })
-        .save()
-        .then((model) => {
-          console.log('Teacher successfully signed up');
-          sendResponse(res, 200, headers, JSON.stringify(model));
-        })
-        .catch((err) => {
-          console.log('error in signupTeacher', err);
-          sendResponse(res, 400, headers, JSON.stringify(err));
-        })
-      }
-    })
-    .catch((err) => {
-      console.log('error in signupStudent', err);
-      sendResponse(res, 400, headers, JSON.stringify(err));
-    })
-  },
-
-  loginStudent: (req, res) => {
-    console.log(`Serving ${req.method} request for ${req.url} (helpers.loginStudent)`);
-    const email = req.body.email;
-    const password = req.body.password;
-    new Student({
+    new User({
       email,
       password
     })
     .fetch()
-    .then((student) => {
-      console.log('student fetched');
-      res.send(student);
+    .then((user) => {
+      console.log('user fetched');
+      // req.session.user = user;
+      res.send(user);
     })
     .catch((err) => {
-      console.log('error fetching students', err);
-      res.send(err);
-    })
-  },
-
-  loginTeacher: (req, res) => {
-    console.log(`Serving ${req.method} request for ${req.url} (helpers.loginTeacher)`);
-    const email = req.body.email;
-    const password = req.body.password;
-    new Teacher({
-      email,
-      password
-    })
-    .fetch()
-    .then((teacher) => {
-      console.log('teacher fetched');
-      res.send(teacher);
-    })
-    .catch((err) => {
-      console.log('error fetching teacher', err);
+      console.log('error fetching users', err);
       res.send(err);
     })
   }
