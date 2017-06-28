@@ -12,12 +12,12 @@ angular.module('tugOfWarApp').controller('loginController', function($cookies, $
       })
       .then((resp) => {
         if(resp.data) {
-          var expireDate = new Date();
-          expireDate.setDate(expireDate.getDate() + 1);
+          var now = new Date();
+          var expireDate = new Date(now.getTime() + 10 * 60 * 60 * 1000);
 
           // cookie stuff
           $cookies.put('email', email, {expires: expireDate});
-          $cookies.put('password', password);
+          $cookies.put('password', password, {expires: expireDate});
 
           $location.path('/home');
 
