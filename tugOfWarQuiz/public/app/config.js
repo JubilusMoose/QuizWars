@@ -1,6 +1,10 @@
 angular.module('tugOfWarApp')
   .config(($routeProvider) => {
     $routeProvider
+      .when('/', {
+        templateUrl: './app/loginAndSignup/login.html',
+        controller: 'loginController'
+      })
       .when('/newGame', {
         templateUrl: './app/newGame/newGame.html',
         controller: 'newGameController'
@@ -28,6 +32,7 @@ angular.module('tugOfWarApp')
 
     window.checkLoggedIn = function() {
       console.log('checkedLoggedIn', $cookies.get('email'));
+      console.log('cookies', $cookies.getAll());
       if($cookies.get('email') === undefined) {
         $location.path('/login');
       }

@@ -51,6 +51,11 @@ app.post('/signup', (req, res) => {
   helpers.signup(req, res);
 })
 
+app.post('/changeName', (req, res) => {
+  console.log('change name in db', req.body);
+  helpers.changeName(req, res);
+})
+
 app.get('/newGame', (req, res) => {
   console.log('get request to newGame successfully ran');
   sendResponse(res, 200, headers, 'Good to start a new game!');

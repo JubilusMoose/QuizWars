@@ -36,6 +36,7 @@ module.exports = {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.login)`);
     const email = req.body.email;
     const password = req.body.password;
+    
     new User({
       email,
       password
@@ -49,6 +50,24 @@ module.exports = {
     .catch((err) => {
       console.log('error fetching users', err);
       res.send(err);
+    })
+  },
+
+  changeName: (req, res) => {
+    console.log(`Serving ${req.method} request for ${req.url} (helpers.changeName)`);
+    const email = req.body.email;
+    const name = req.body.name;
+
+    new User()
+    .where({
+      email
+    })
+    .save({
+      name
+    })
+    .then((user) => {
+      console.log('user fetched', user)
+      res.send('user name updated');
     })
   }
 }
