@@ -99,6 +99,36 @@
   font-size: 40px;
 }
 
+.homeButton {
+  font-size: 18px;
+  color: white;
+  border-radius: 5px;
+  width: 33%;
+  margin: 5px;
+
+  background: linear-gradient(270deg, #000000, #1d33cd);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
+}
+
+.longButton {
+  width: 80%;
+  margin: 20px;
+}
+
+.homeSubmitButton {
+  margin-right: 0;
+}
+
+.homeInput {
+  font-size: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
 .wrapper {
   width: 100%;
   margin: 0 auto;

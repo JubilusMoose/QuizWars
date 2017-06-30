@@ -2,16 +2,16 @@
   <div>
     <div>
       <p class="homeTitle">Welcome to Tug Of War, {{ name }}!</p>
-      <button ng-click="changeNameButton()">My Profile</button>
+      <button class="homeButton longButton" ng-click="changeNameButton()">My Profile</button>
     </div>
     <img src="../../images/tugOfWarHomepage.png"></img>
     <div>
       <form ng-submit="startNewGame(roomName)">
-        <input type="text" ng-model="roomName" placeholder="Enter Room Name">
-          <button type="submit">Submit</button>
+        <input type="text" class="homeInput" ng-model="roomName" placeholder="Enter Room Name">
+          <button type="submit" class="homeButton homeSubmitButton">Submit</button>
         </input>
       </form>
-      <button ng-click="logout()">Log out</button>
+      <button class="homeButton longButton" ng-click="logout()">Log out</button>
     </div>
   </div>
 </div>
