@@ -25,7 +25,9 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
 
   $scope.logout = () => { 
     for(var x in $cookies.getAll()  ) { 
-      $cookies.remove(x); 
+      if (x !== 'name') {
+        $cookies.remove(x); 
+      } 
     }
 
     $location.path('/login');

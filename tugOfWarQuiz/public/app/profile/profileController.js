@@ -32,7 +32,9 @@ angular.module('tugOfWarApp').controller('profileController', function($cookies,
 
   $scope.logout = () => {
     for(var x in $cookies.getAll()  ) { 
-      $cookies.remove(x); 
+      if (x !== 'name') {
+        $cookies.remove(x); 
+      }
     }
     
     $location.path('/login');
