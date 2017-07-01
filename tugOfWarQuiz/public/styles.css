@@ -74,11 +74,6 @@
   margin-left: 70px;
 }
 
-/*.radioBox {
-  padding: 5px;
-  margin: 5px;
-}*/
-
 .homeBox {
   color: white;
   display: flex;
@@ -116,10 +111,10 @@
 
 .longButton {
   width: 80%;
-  margin: 20px;
+  margin: 10px;
 }
 
-.homeSubmitButton {
+.homeJoinButton {
   margin-right: 0;
 }
 

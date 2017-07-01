@@ -1,6 +1,6 @@
 const headers = require('./headers');
 // const sessions= require('client-sessions');
-const { User } = require('./db/models');
+const { User, Game, JoinedGame } = require('./db/models');
 
 
 const sendResponse = (res, statusCode, headersSent, responseMessage) => {
@@ -23,8 +23,13 @@ module.exports = {
     .save()
     .then((user) => {
       console.log('user successfully signed up');
-      // req.session.user = user;
-      sendResponse(res, 200, headers, JSON.stringify(user));
+      return new JoinedGame({
+        user_id: user.get('id'),
+        list_id: 1
+      })
+      .save().then(() => {
+        sendResponse(res, 200, headers, JSON.stringify(user));
+      })
     })
     .catch((err) => {
       console.log('error in signup', err);
@@ -69,5 +74,10 @@ module.exports = {
       console.log('user fetched', user)
       res.send('user name updated');
     })
+  },
+
+  joinRoom: (req, res) => {
+    console.log(`Serving ${req.method} request for ${req.url} (helpers.joinRoom)`);
+    new Game
   }
 }

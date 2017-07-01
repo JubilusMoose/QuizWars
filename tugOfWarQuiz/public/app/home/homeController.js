@@ -10,17 +10,24 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
     $rootScope.teamTwo = teamTwo;
   }
 
-  $scope.startNewGame = (roomName) => {
-    axios.get('/newGame')
-      .then(function(res) {
-        console.log(`new game ready for ${roomName}!`, res);
-        $scope.displayTeams(['jon', 'jimmy'], ['jane', 'jasmine'])
-        $location.path('/newGame');
-        $rootScope.$apply();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+  $scope.joinRoom = (roomName) => {
+    console.log('roomName', roomName);
+    axios.post('/joinRoom', {
+      roomName
+    })
+    .then((resp) => {
+      console.log(`new game ready for ${roomName}!`, resp);
+      $scope.displayTeams(['jon', 'jimmy'], ['jane', 'jasmine'])
+      $location.path('/createNewGame');
+      $rootScope.$apply();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+  $scope.createNewRoom = () => {
+    $location.path('/createNewGame');
   }
 
   $scope.logout = () => { 

@@ -37,7 +37,11 @@ app.get('/resetDB', (req, res) => {
 })
 
 app.get('/allUsers', (req, res) => {
-  api.retrieveAll(req, res);
+  api.retrieveAllUsers(req, res);
+})
+
+app.get('/allGames', (req, res) => {
+  api.retrieveAllGames(req, res);
 })
 
 // Calls from FE
@@ -56,9 +60,9 @@ app.post('/changeName', (req, res) => {
   helpers.changeName(req, res);
 })
 
-app.get('/newGame', (req, res) => {
+app.post('/joinRoom', (req, res) => {
   console.log('get request to newGame successfully ran');
-  sendResponse(res, 200, headers, 'Good to start a new game!');
+  helpers.joinRoom(req, res);
 });
 
 app.get('*', (req, res) => {
