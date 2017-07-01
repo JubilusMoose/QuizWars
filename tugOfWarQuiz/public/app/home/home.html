@@ -8,7 +8,8 @@
     <div>
       <form ng-submit="startNewGame(roomName)">
         <input type="text" class="homeInput" ng-model="roomName" placeholder="Enter Room Name">
-          <button type="submit" class="homeButton homeSubmitButton">Submit</button>
+          <button type="submit" ng-click="joinRoom(roomName)" class="homeButton homeJoinButton">Join</button>
+          <button type="submit" ng-click="createNewRoom()" class="homeButton longButton">Create New Game</button>
         </input>
       </form>
       <button class="homeButton longButton" ng-click="logout()">Log out</button>

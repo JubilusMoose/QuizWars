@@ -5,9 +5,13 @@ angular.module('tugOfWarApp')
         templateUrl: './app/loginAndSignup/login.html',
         controller: 'loginController'
       })
-      .when('/newGame', {
-        templateUrl: './app/newGame/newGame.html',
+      .when('/createNewGame', {
+        templateUrl: './app/createNewGame/newGame.html',
         controller: 'newGameController'
+      })
+      .when('/gameRoom', {
+        templateUrl: './app/gameRoom/gameRoom.html',
+        controller: 'gameRoomController'
       })
       .when('/login', {
         templateUrl: './app/loginAndSignup/login.html',
