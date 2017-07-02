@@ -18,10 +18,10 @@ models.Game = bookshelf.Model.extend({
 
 models.JoinedGame = bookshelf.Model.extend({
   tableName: 'users_games',
-  user: function() {
+  users: function() {
     return this.belongsTo(models.User);
   },
-  game: function() {
+  games: function() {
     return this.belongsTo(models.Game);
   }
 })
