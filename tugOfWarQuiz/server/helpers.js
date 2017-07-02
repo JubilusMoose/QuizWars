@@ -1,5 +1,4 @@
 const headers = require('./headers');
-// const sessions= require('client-sessions');
 const { User, Game, JoinedGame } = require('./db/models');
 
 
@@ -23,9 +22,9 @@ module.exports = {
     .save()
     .then((user) => {
       console.log('user successfully signed up');
-      return new JoinedGame({
+      new JoinedGame({
         user_id: user.get('id'),
-        list_id: 1
+        game_id: 1
       })
       .save().then(() => {
         sendResponse(res, 200, headers, JSON.stringify(user));
@@ -49,7 +48,6 @@ module.exports = {
     .fetch()
     .then((user) => {
       console.log('user fetched');
-      // req.session.user = user;
       res.send(user);
     })
     .catch((err) => {
@@ -64,20 +62,50 @@ module.exports = {
     const name = req.body.name;
 
     new User()
-    .where({
-      email
-    })
-    .save({
-      name
-    })
+    .where({email})
+    .save({name}, {patch: true})
     .then((user) => {
       console.log('user fetched', user)
       res.send('user name updated');
     })
   },
 
+  createGame: (req, res) => {
+    console.log('req.body', req.body);
+
+  },
+
   joinRoom: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.joinRoom)`);
-    new Game
+    console.log('req.body', req.body);
+    const roomName = req.body.roomName;
+    const userName = req.body.userName;
+    
+    new Game({ name: roomName })
+    .fetch()
+    .then((gameModel) => {
+      const game_id = gameModel.id;
+      new User({ name: userName })
+      .fetch()
+      .then((userModel) => {
+        const user_id = userModel.id;
+        new JoinedGame()
+        .save({
+          user_id,
+          game_id
+        })
+        .then((joinedGameModel) => {
+          console.log('joinedGameModel', joinedGameModel);
+          new Game({ id: game_id })
+          .fetch({ withRelated: ['users']})
+          .then((arr) => {
+            console.log('arr', arr);
+          })
+        })
+      })
+    })
+    .catch((err) => {
+      console.log('error in joinRoom', err);
+    })
   }
 }

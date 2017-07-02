@@ -2,7 +2,6 @@ const headers = require('./headers');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const sessions= require('client-sessions');
 const app = express();
 
 // Database setup and helpers
@@ -17,12 +16,6 @@ app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(sessions({
-//   cookieName: 'session',
-//   secret: 'akjhahaeo039u40qfewhroin30934noewv30v34f',
-//   duration: 30 * 60 * 1000,
-//   activeDuration: 5 * 60 * 1000
-// }));
 
 const sendResponse = (res, statusCode, headersSent, responseMessage) => {
   console.log(responseMessage);
@@ -58,6 +51,11 @@ app.post('/signup', (req, res) => {
 app.post('/changeName', (req, res) => {
   console.log('change name in db', req.body);
   helpers.changeName(req, res);
+})
+
+app.post('/createGame', (req, res) => {
+  console.log('create game', req.body);
+  helpers.createGame(req, res);
 })
 
 app.post('/joinRoom', (req, res) => {

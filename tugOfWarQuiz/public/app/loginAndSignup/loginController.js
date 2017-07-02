@@ -16,6 +16,8 @@ angular.module('tugOfWarApp').controller('loginController', function($cookies, $
           var expireDate = new Date(now.getTime() + 10 * 60 * 60 * 1000);
 
           // cookie stuff
+          $cookies.put('id', resp.data.id);
+          $cookies.put('name', resp.data.name);
           $cookies.put('email', email, {expires: expireDate});
           $cookies.put('password', password, {expires: expireDate});
 

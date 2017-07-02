@@ -24,8 +24,8 @@ module.exports = {
     // JoinedGames
     .createTable('users_games', (table) => {
       table.increments().primary();
-      table.integer('user_Id').unsigned().references('users.id');
-      table.integer('game_Id').unsigned().references('games.id');
+      table.integer('user_id').unsigned().references('users.id');
+      table.integer('game_id').unsigned().references('games.id');
     })
     .then(() => {
       console.log('return new User');

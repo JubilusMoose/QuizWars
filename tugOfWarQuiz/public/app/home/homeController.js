@@ -12,8 +12,10 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
 
   $scope.joinRoom = (roomName) => {
     console.log('roomName', roomName);
+
     axios.post('/joinRoom', {
-      roomName
+      roomName,
+      userName: $cookies.id
     })
     .then((resp) => {
       console.log(`new game ready for ${roomName}!`, resp);
@@ -32,9 +34,7 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
 
   $scope.logout = () => { 
     for(var x in $cookies.getAll()  ) { 
-      if (x !== 'name') {
-        $cookies.remove(x); 
-      } 
+      $cookies.remove(x); 
     }
 
     $location.path('/login');
