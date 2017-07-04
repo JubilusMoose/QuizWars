@@ -1,5 +1,10 @@
 angular.module('tugOfWarApp').controller('homeController', function($cookies, $rootScope, $scope, $location) {
-  $scope.name = $cookies.get('name') || 'Friend';
+  
+  if($cookies.get('name') === 'null' || !$cookies.get('name')) {
+    $scope.name = 'Friend'
+  } else {
+    $scope.name = $cookies.get('name');
+  }
 
   $scope.changeNameButton = () => {
     $location.path('/profile');

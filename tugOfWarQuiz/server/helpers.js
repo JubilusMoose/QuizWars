@@ -72,7 +72,7 @@ module.exports = {
 
   createGame: (req, res) => {
     console.log('req.body', req.body);
-
+    
   },
 
   joinRoom: (req, res) => {
