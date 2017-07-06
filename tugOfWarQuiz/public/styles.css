@@ -16,7 +16,26 @@
     100%{background-position:0% 50%}
 }
 
-.loginBox {
+button {
+  width: 25%;
+  font-size: 20px;
+  border-radius: 10px;
+  color: white;
+}
+
+input {
+  width: 50%;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+li {
+  text-align: left;
+}
+
+.loginContainer {
   color: white;
   background: linear-gradient(270deg, #29c733, #000000);
   background-size: 400% 400%;
@@ -26,30 +45,22 @@
   animation: gradientChange 10s ease infinite;
 }
 
-.loginForm {
+.innerContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.loginTitle {
+.title {
   font-size: 40px;
 }
 
-.loginDiv {
+.headerDiv {
   width: 50%;
   margin: 5px;
   padding: 5px;
   text-align: center;
-}
-
-.loginInput {
-  width: 50%;
-  margin: 5px;
-  padding: 5px;
-  text-align: center;
-  border-radius: 5px;
 }
 
 .emailInput {
@@ -57,11 +68,6 @@
 }
 
 .loginButton {
-  width: 25%;
-  font-size: 20px;
-  border-radius: 10px;
-  color: white;
-
   background: linear-gradient(270deg, black, green);
   background-size: 400% 400%;
 
@@ -70,7 +76,7 @@
   animation: gradientChange 10s ease infinite;
 }
 
-.login {
+.moveButtonRight {
   margin-left: 70px;
 }
 
@@ -151,16 +157,23 @@
   float: left;
 }
 
-li {
-  text-align: left;
+.profileContainer {  
+  color: white;
+  background: linear-gradient(270deg, purple, black);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
 }
 
-.profileBox {  
-  background: purple;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
+.profileButton {
+  width: 50%;
+  margin: 5px;
+  background: linear-gradient(270deg, black, purple);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
 }
