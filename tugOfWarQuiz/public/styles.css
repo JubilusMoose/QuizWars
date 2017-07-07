@@ -115,9 +115,14 @@ li {
   animation: gradientChange 10s ease infinite;
 }
 
+.homeInput {
+  width: 40%;
+}
+
 .longButton {
-  width: 80%;
-  margin: 10px;
+  width: 79%;
+  margin: 10px 0;
+  margin-right: 0px
 }
 
 .homeJoinButton {
@@ -171,6 +176,39 @@ li {
   width: 50%;
   margin: 5px;
   background: linear-gradient(270deg, black, purple);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
+}
+
+.newGameBox {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  
+  background: linear-gradient(270deg, red, #000000);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
+}
+
+.newGameInput {
+  width: 75%;
+}
+
+.newGameButton {
+  width: 80%;
+  color: white;
+  text-align: center;
+  
+  background: linear-gradient(270deg, #000000, red);
   background-size: 400% 400%;
 
   -webkit-animation: gradientChange 10s ease infinite;
