@@ -1,17 +1,17 @@
 angular.module('tugOfWarApp').controller('loginController', function($cookies, $rootScope, $scope, $location) {
-  // $scope.access = 'student';
+  
   $scope.loginAttempt = function(email, password) {
     if(!email) {
       console.log('not an email address');
       $location.path('/login');
     } else {
-      // var access = $scope.access;
       axios.post('/login', {
         email,
         password
       })
       .then((resp) => {
-        if(resp.data) {
+        console.log('resp.data', resp.data);
+        if(resp.data !== 'user not in system') {
           var now = new Date();
           var expireDate = new Date(now.getTime() + 10 * 60 * 60 * 1000);
 
@@ -27,11 +27,12 @@ angular.module('tugOfWarApp').controller('loginController', function($cookies, $
         } else {
           console.log('student/teacher not in system');
           const inputText = document.querySelectorAll('.loginInput');
-          const loginDiv = document.querySelector('.loginDiv');
+          const loginDiv = document.querySelector('.headerDiv');
           const para = document.createElement("P");
           const failMessage = document.createTextNode("Incorrect username or password");
           
           inputText.forEach((ele) => {
+            console.log('here')
             ele.value = '';
           });
           
@@ -41,6 +42,7 @@ angular.module('tugOfWarApp').controller('loginController', function($cookies, $
             loginDiv.removeChild(loginDiv.childNodes[0]);
           } 
 
+          console.log('here');
           if(loginDiv.childNodes[0].innerText !== "Incorrect username or password") {
             loginDiv.insertBefore(para, loginDiv.firstChild);
           }
@@ -53,7 +55,6 @@ angular.module('tugOfWarApp').controller('loginController', function($cookies, $
   }
 
   $scope.signupAttempt = function(email, password) {
-    // var access = $scope.access;
     axios.post('/signup', {
       email,
       password
@@ -73,7 +74,7 @@ angular.module('tugOfWarApp').controller('loginController', function($cookies, $
       } else {
         console.log('Student/Teacher email already in use');
         const inputText = document.querySelectorAll('.loginInput');
-        const loginDiv = document.querySelector('.loginDiv');
+        const loginDiv = document.querySelector('.headerDiv');
         const para = document.createElement("P");
         const failMessage = document.createTextNode("Email is already in use");
         

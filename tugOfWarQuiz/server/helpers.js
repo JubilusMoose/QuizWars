@@ -47,12 +47,18 @@ module.exports = {
     })
     .fetch()
     .then((user) => {
-      console.log('user fetched');
-      res.send(user);
+      console.log('user', user);
+      if(user) {
+        console.log('user in system')
+        res.send(user)
+      } else {
+        console.log('user not in system')
+        sendResponse(res, 200, headers, 'user not in system');
+      }
     })
     .catch((err) => {
-      console.log('error fetching users', err);
-      res.send(err);
+      console.log('error fetching user', err);
+      sendResponse(res, 200, headers, 'error fetching user');
     })
   },
 
@@ -68,11 +74,42 @@ module.exports = {
       console.log('user fetched', user)
       res.send('user name updated');
     })
+    .catch((err) => {
+      console.log('error changing user name', err);
+      sendResponse(res, 200, headers, 'error changing user name');
+    })
   },
 
   createGame: (req, res) => {
     console.log('req.body', req.body);
-    
+    const gameName = req.body.gameName;
+    const creatorId = req.body.userId;
+
+    new Game({ 
+      name: gameName, 
+      creator: creatorId 
+    })
+    .fetch()
+    .then((gameModel) => {
+      console.log('gameModel', gameModel)
+      if(gameModel !== null) {
+        console.log('game already created')
+        res.send('game already created');
+      } else {
+        new Game({
+          name: gameName, 
+          creator: creatorId
+        })
+        .save()
+        .then((gameModel) => {
+          console.log('gameModel saved', gameModel);
+        })
+      }
+    })
+    .catch((err) => {
+        console.log('error in creating game', err)
+        sendResponse(res, 200, headers, 'game already created');
+    })
   },
 
   joinRoom: (req, res) => {
