@@ -102,7 +102,9 @@ module.exports = {
         })
         .save()
         .then((gameModel) => {
-          console.log('gameModel saved', gameModel);
+          const gameId = gameModel.get('id');
+          console.log('gameId', gameId);
+          res.send(`${gameModel.name} created with ID of ${gameId}`);
         })
       }
     })

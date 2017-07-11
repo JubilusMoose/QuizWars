@@ -10,11 +10,6 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
     $location.path('/profile');
   }
 
-  $scope.displayTeams = function(teamOne, teamTwo) {
-    $rootScope.teamOne = teamOne;
-    $rootScope.teamTwo = teamTwo;
-  }
-
   $scope.joinRoom = (roomName) => {
     console.log('roomName', roomName);
 
@@ -24,7 +19,6 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
     })
     .then((resp) => {
       console.log(`new game ready for ${roomName}!`, resp);
-      $scope.displayTeams(['jon', 'jimmy'], ['jane', 'jasmine'])
       $location.path('/createNewGame');
       $rootScope.$apply();
     })
