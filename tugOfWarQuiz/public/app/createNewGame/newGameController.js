@@ -5,7 +5,8 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
       userId: $cookies.get('id')
     })
     .then((resp) => {
-      console.log(resp)
+      console.log(resp);
+      $location.path('/gameRoom');
     })
     .catch((err) => {
       console.log('error in createGame call', err);
