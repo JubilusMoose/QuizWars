@@ -59,7 +59,7 @@ app.post('/createGame', (req, res) => {
 })
 
 app.post('/joinRoom', (req, res) => {
-  console.log('get request to newGame successfully ran');
+  console.log('post request to joinRoom successfully ran');
   helpers.joinRoom(req, res);
 });
 

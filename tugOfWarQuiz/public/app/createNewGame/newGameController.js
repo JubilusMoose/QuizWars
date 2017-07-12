@@ -1,12 +1,21 @@
-angular.module('tugOfWarApp').controller('newGameController', function($cookies, $scope, $location) {
+angular.module('tugOfWarApp').controller('newGameController', function($cookies, $rootScope, $scope, $location) {
   $scope.createGame = (gameName) => {
     axios.post('/createGame', {
       gameName,
       userId: $cookies.get('id')
     })
     .then((resp) => {
-      console.log(resp);
-      $location.path('/gameRoom');
+      console.log('resp data', resp.data);
+      console.log('cookies.get(id)', $cookies.get('id'));
+      axios.post('/joinRoom', {
+        roomName: gameName,
+        userId: $cookies.get('id')
+      })
+      .then((resp) => {
+        console.log('resp', resp.data);
+        $location.path('/home');
+        $rootScope.$apply()
+      })
     })
     .catch((err) => {
       console.log('error in createGame call', err);
@@ -15,7 +24,7 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
 
   $scope.goToHomePage = () => {
     $location.path('/home');
-    $rootScope.apply();
+    $rootScope.$apply();
   }
 
   $scope.logout = () => { 
