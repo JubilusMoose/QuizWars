@@ -15,11 +15,11 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
 
     axios.post('/joinRoom', {
       roomName,
-      userName: $cookies.id
+      userId: $cookies.get('id')
     })
     .then((resp) => {
       console.log(`new game ready for ${roomName}!`, resp);
-      $location.path('/createNewGame');
+      $location.path('/gameRoom');
       $rootScope.$apply();
     })
     .catch((err) => {

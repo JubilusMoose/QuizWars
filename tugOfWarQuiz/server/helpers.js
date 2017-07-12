@@ -27,7 +27,7 @@ module.exports = {
         game_id: 1
       })
       .save().then(() => {
-        sendResponse(res, 200, headers, JSON.stringify(user));
+        res.send(user);
       })
     })
     .catch((err) => {
@@ -91,7 +91,7 @@ module.exports = {
     })
     .fetch()
     .then((gameModel) => {
-      console.log('gameModel', gameModel)
+      console.log('gameModel in createGame', gameModel)
       if(gameModel !== null) {
         console.log('game already created')
         res.send('game already created');
@@ -103,8 +103,9 @@ module.exports = {
         .save()
         .then((gameModel) => {
           const gameId = gameModel.get('id');
-          console.log('gameId', gameId);
-          res.send(`${gameModel.name} created with ID of ${gameId}`);
+          const gameName = gameModel.get('name');
+          console.log('gameModel 2 in createGame', gameModel);
+          res.send(`${gameName} created with ID of ${gameId}`);
         })
       }
     })
@@ -118,16 +119,16 @@ module.exports = {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.joinRoom)`);
     console.log('req.body', req.body);
     const roomName = req.body.roomName;
-    const userName = req.body.userName;
+    const userId = req.body.userId;
     
     new Game({ name: roomName })
     .fetch()
     .then((gameModel) => {
-      const game_id = gameModel.id;
-      new User({ name: userName })
+      const game_id = gameModel.get('id');
+      new User({ id: userId })
       .fetch()
       .then((userModel) => {
-        const user_id = userModel.id;
+        const user_id = userModel.get('id');
         new JoinedGame()
         .save({
           user_id,
@@ -135,10 +136,11 @@ module.exports = {
         })
         .then((joinedGameModel) => {
           console.log('joinedGameModel', joinedGameModel);
-          new Game({ id: game_id })
+          new JoinedGame()
           .fetch({ withRelated: ['users']})
           .then((arr) => {
             console.log('arr', arr);
+            res.send('sending array')
           })
         })
       })
