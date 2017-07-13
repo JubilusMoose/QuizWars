@@ -23,5 +23,13 @@ module.exports = {
     .then((allGames) => {
       sendResponse(res, 200, headers, JSON.stringify(allGames));
     })
+  },
+
+  retrieveAllJoinedGames: (req, res) => {
+    new JoinedGame()
+    .fetchAll()
+    .then((allJoinedGames) => {
+      sendResponse(res, 200, headers, JSON.stringify(allJoinedGames));
+    })
   }
 }
