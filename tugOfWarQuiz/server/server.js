@@ -37,6 +37,10 @@ app.get('/allGames', (req, res) => {
   api.retrieveAllGames(req, res);
 })
 
+app.get('/allJoinedGames', (req, res) => {
+  api.retrieveAllJoinedGames(req, res);
+})
+
 // Calls from FE
 app.post('/login', (req, res) => {
   console.log('check user in database', req.body);

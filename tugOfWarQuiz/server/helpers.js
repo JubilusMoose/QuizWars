@@ -47,7 +47,6 @@ module.exports = {
     })
     .fetch()
     .then((user) => {
-      console.log('user', user);
       if(user) {
         console.log('user in system')
         res.send(user)
@@ -110,8 +109,8 @@ module.exports = {
       }
     })
     .catch((err) => {
-        console.log('error in creating game', err)
-        sendResponse(res, 200, headers, 'game already created');
+      console.log('error in creating game', err)
+      sendResponse(res, 200, headers, 'game already created');
     })
   },
 
@@ -124,29 +123,48 @@ module.exports = {
     new Game({ name: roomName })
     .fetch()
     .then((gameModel) => {
-      const game_id = gameModel.get('id');
-      new User({ id: userId })
-      .fetch()
-      .then((userModel) => {
-        const user_id = userModel.get('id');
-        new JoinedGame()
-        .save({
-          user_id,
-          game_id
-        })
-        .then((joinedGameModel) => {
-          console.log('joinedGameModel', joinedGameModel);
-          new JoinedGame()
-          .fetch({ withRelated: ['users']})
-          .then((arr) => {
-            console.log('arr', arr);
-            res.send('sending array')
+      if(!gameModel) {
+        console.log('room does not exist');
+        res.send('room does not exist');
+      } else {
+        const game_id = gameModel.get('id');
+        new User({ id: userId })
+        .fetch()
+        .then((userModel) => {
+          const user_id = userModel.get('id');
+          console.log('user fetched for user', user_id);
+          new JoinedGame({ 
+            user_id,
+            game_id 
           })
-        })
-      })
+          .fetch()
+          .then((joinedGameModel) => {
+            if(!joinedGameModel) {
+              new JoinedGame()
+              .save({
+                user_id,
+                game_id
+              }) 
+              .then((joinedGameModel) => {
+                console.log('joinedGameModel id', joinedGameModel.get('id'))
+                new Game({ id: game_id })
+                .fetch({ withRelated: ['users']})
+                .then((arr) => {
+                  console.log('arr', arr);
+                  res.send('sending array')
+                })
+              })
+            } else {
+              console.log('user already joined game');
+              res.send('user already joined game');
+            }
+          })
+        })  
+      }
     })
     .catch((err) => {
       console.log('error in joinRoom', err);
+      res.send('error in joinRoom');
     })
   }
 }
