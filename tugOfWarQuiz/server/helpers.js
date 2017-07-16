@@ -86,7 +86,6 @@ module.exports = {
 
     new Game({ 
       name: gameName, 
-      creator: creatorId 
     })
     .fetch()
     .then((gameModel) => {
@@ -104,7 +103,7 @@ module.exports = {
           const gameId = gameModel.get('id');
           const gameName = gameModel.get('name');
           console.log('gameModel 2 in createGame', gameModel);
-          res.send(`${gameName} created with ID of ${gameId}`);
+          res.send(gameModel.attributes);
         })
       }
     })
@@ -119,6 +118,10 @@ module.exports = {
     console.log('req.body', req.body);
     const roomName = req.body.roomName;
     const userId = req.body.userId;
+
+    /////////////////////////////////////////////
+    //// if creator do not add to students //////
+    /////////////////////////////////////////////
     
     new Game({ name: roomName })
     .fetch()
@@ -139,7 +142,7 @@ module.exports = {
           })
           .fetch()
           .then((joinedGameModel) => {
-            if(!joinedGameModel) {
+            if(!joinedGameModel && userId !== gameModel.get('creator')) {
               new JoinedGame()
               .save({
                 user_id,
@@ -150,15 +153,19 @@ module.exports = {
                 new JoinedGame()
                 .where({ game_id })
                 .fetchAll()
-                .then((arr) => {
-                  console.log('arr', arr.models);
-                  res.send(arr.models);
-                })
-                
+                .then((allGameModels) => {
+                  console.log('array of models', allGameModels.models);
+                  res.send(allGameModels.models);
+                })   
               })
             } else {
-              console.log('user already joined game');
-              res.send('user already joined game');
+              new JoinedGame()
+              .where({ game_id })
+              .fetchAll()
+              .then((allGameModels) => {
+                console.log('array of models', allGameModels.models);
+                res.send(allGameModels.models);
+              })
             }
           })
         })  

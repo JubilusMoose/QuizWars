@@ -7,15 +7,28 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
     .then((resp) => {
       console.log('resp data', resp.data);
       console.log('cookies.get(id)', $cookies.get('id'));
-      axios.post('/joinRoom', {
-        roomName: gameName,
-        userId: $cookies.get('id')
-      })
-      .then((resp) => {
-        console.log('resp', resp.data);
-        $location.path('/home');
-        $rootScope.$apply()
-      })
+      if(resp.data !== 'game already created') {
+        const gameId = resp.data.id;
+        $rootScope.gameRooms[gameId] = {};
+        $rootScope.gameRooms[gameId].creator = $cookies.get('id');
+        $rootScope.gameRooms[gameId].students = [];
+        axios.post('/joinRoom', {
+          roomName: gameName,
+          userId: $cookies.get('id')
+        })
+        .then((resp) => {
+          console.log('resp', resp.data);
+          
+          /////////////////////////////////
+          ////// SEND TO JOIN ROOM ///////
+          ////////////////////////////////
+
+          $location.path('/home');
+          $rootScope.$apply()
+        }) 
+      } else {
+        console.log('game already created');
+      }
     })
     .catch((err) => {
       console.log('error in createGame call', err);

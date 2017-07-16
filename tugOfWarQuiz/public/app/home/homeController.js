@@ -12,16 +12,16 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
 
   $scope.joinRoom = (roomName) => {
     console.log('roomName', roomName);
-
     axios.post('/joinRoom', {
       roomName,
       userId: $cookies.get('id')
     })
     .then((resp) => {
-      console.log(`new game ready for ${roomName}!`, resp);
+      console.log(`joining ${roomName}!`, resp);
       let gameId = resp.data[0].game_id;
       if(resp.data !== 'room does not exist') {
-          $location.search({ students: $rootScope.gameRooms[gameId] });
+          $rootScope.gameRooms[gameId].students = resp.data;
+          $location.search({ players: $rootScope.gameRooms[gameId].students });
           $location.path('/gameRoom');
           $rootScope.$apply();
       } else {

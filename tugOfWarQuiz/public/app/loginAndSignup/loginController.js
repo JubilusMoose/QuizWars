@@ -1,4 +1,7 @@
 angular.module('tugOfWarApp').controller('loginController', function($cookies, $rootScope, $scope, $location) {
+  if(!$rootScope.gameRooms) {
+    $rootScope.gameRooms = {};
+  }
 
   $scope.loginAttempt = function(email, password) {
     if(!email) {
