@@ -1,6 +1,6 @@
 angular.module('tugOfWarApp').controller('gameRoomController', function($cookies, $rootScope, $scope, $location) {
-  console.log('array of students', $location.search().students.data);
-  const studentsArr = $location.search().students.data;
+  console.log('array of students', $location.search().students);
+  const studentsArr = $location.search().players;
   $scope.teamOneName = 'Pauls Team';
   $scope.teamTwoName = 'Jons Team';
   $scope.teamOne = [];

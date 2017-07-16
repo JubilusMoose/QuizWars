@@ -1,4 +1,7 @@
 angular.module('tugOfWarApp').controller('loginController', function($cookies, $rootScope, $scope, $location) {
+  if(!$rootScope.gameRooms) {
+    $rootScope.gameRooms = {};
+  }
 
   $scope.loginAttempt = function(email, password) {
     if(!email) {
@@ -26,23 +29,21 @@ angular.module('tugOfWarApp').controller('loginController', function($cookies, $
           $rootScope.$apply();
         } else {
           console.log('student/teacher not in system');
-          const inputText = document.querySelectorAll('.loginInput');
-          const loginDiv = document.querySelector('.headerDiv');
-          const para = document.createElement("P");
-          const failMessage = document.createTextNode("Incorrect username or password");
+          let inputText = document.querySelectorAll('.loginInput');
+          let loginDiv = document.querySelector('.headerDiv');
+          let para = document.createElement("P");
+          let failMessage = document.createTextNode("Incorrect username or password");
           
           inputText.forEach((ele) => {
-            console.log('here')
             ele.value = '';
           });
           
           para.appendChild(failMessage);
 
-          if(loginDiv.childNodes[0].innerText === "Email is already in use"){
+          if(loginDiv.childNodes[0].innerText === "Email is already in use") {
             loginDiv.removeChild(loginDiv.childNodes[0]);
           } 
 
-          console.log('here');
           if(loginDiv.childNodes[0].innerText !== "Incorrect username or password") {
             loginDiv.insertBefore(para, loginDiv.firstChild);
           }
