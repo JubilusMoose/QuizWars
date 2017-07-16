@@ -28,6 +28,20 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
         }) 
       } else {
         console.log('game already created');
+        let inputText = document.querySelectorAll('.newGameInput');
+        let titleDiv = document.querySelector('.titleDiv');
+        let para = document.createElement("P");
+        let failMessage = document.createTextNode("Game Already Created");
+        
+        inputText.forEach((ele) => {
+          ele.value = '';
+        });
+
+        para.appendChild(failMessage);
+
+        if(titleDiv.childNodes[0].innerText !== "Game Already Created") {
+          titleDiv.insertBefore(para, titleDiv.firstChild);
+        }
       }
     })
     .catch((err) => {

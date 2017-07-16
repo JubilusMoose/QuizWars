@@ -118,10 +118,6 @@ module.exports = {
     console.log('req.body', req.body);
     const roomName = req.body.roomName;
     const userId = req.body.userId;
-
-    /////////////////////////////////////////////
-    //// if creator do not add to students //////
-    /////////////////////////////////////////////
     
     new Game({ name: roomName })
     .fetch()
@@ -164,7 +160,11 @@ module.exports = {
               .fetchAll()
               .then((allGameModels) => {
                 console.log('array of models', allGameModels.models);
-                res.send(allGameModels.models);
+                if(allGameModels.models.length === 0) {
+                  res.send([{ game_id }])
+                } else {
+                  res.send(allGameModels.models);   
+                }
               })
             }
           })
