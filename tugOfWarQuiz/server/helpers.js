@@ -144,15 +144,17 @@ module.exports = {
               .save({
                 user_id,
                 game_id
-              }) 
-              .then((joinedGameModel) => {
-                console.log('joinedGameModel id', joinedGameModel.get('id'))
-                new Game({ id: game_id })
-                .fetch({ withRelated: ['users']})
+              })
+              .then((joinedGameModel2) => {
+                console.log('joinedGameModel2 id', joinedGameModel2);
+                new JoinedGame()
+                .where({ game_id })
+                .fetchAll()
                 .then((arr) => {
-                  console.log('arr', arr);
-                  res.send('sending array')
+                  console.log('arr', arr.models);
+                  res.send(arr.models);
                 })
+                
               })
             } else {
               console.log('user already joined game');

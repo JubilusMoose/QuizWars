@@ -1,4 +1,19 @@
-angular.module('tugOfWarApp').controller('gameRoomeController', function($scope) {
-  $scope.teamOneName = "Team One";
-  $scope.teamTwoName = "Team Two";
+angular.module('tugOfWarApp').controller('gameRoomController', function($cookies, $rootScope, $scope, $location) {
+  console.log('array of students', $location.search().students.data);
+  const studentsArr = $location.search().students.data;
+  $scope.teamOneName = 'Pauls Team';
+  $scope.teamTwoName = 'Jons Team';
+  $scope.teamOne = [];
+  $scope.teamTwo = [];
+  var odd = false;
+
+  studentsArr.forEach((student) => {
+    if(odd) {
+      $scope.teamOne.push(student.user_id);
+      odd = !odd;
+    } else {
+      $scope.teamTwo.push(student.user_id);
+      odd = !odd;
+    }
+  })
 })
