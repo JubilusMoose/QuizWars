@@ -19,8 +19,14 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
     })
     .then((resp) => {
       console.log(`new game ready for ${roomName}!`, resp);
-      $location.path('/gameRoom');
-      $rootScope.$apply();
+      let gameId = resp.data[0].game_id;
+      if(resp.data !== 'room does not exist') {
+          $location.search({ students: $rootScope.gameRooms[gameId] });
+          $location.path('/gameRoom');
+          $rootScope.$apply();
+      } else {
+        console.log('room does not exist');
+      }
     })
     .catch((err) => {
       console.log(err);
