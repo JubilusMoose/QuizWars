@@ -9,9 +9,7 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
       console.log('cookies.get(id)', $cookies.get('id'));
       if(resp.data !== 'game already created') {
         const gameId = resp.data.id;
-        $rootScope.gameRooms[gameId] = {};
-        $rootScope.gameRooms[gameId].creator = $cookies.get('id');
-        $rootScope.gameRooms[gameId].students = [];
+        $cookies.put('creator', $cookies.get('id'));
         axios.post('/joinRoom', {
           roomName: gameName,
           userId: $cookies.get('id')
