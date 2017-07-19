@@ -32,7 +32,7 @@ input {
 }
 
 li {
-  text-align: left;
+  text-align: center;
 }
 
 .loginContainer {
@@ -136,30 +136,50 @@ li {
 }
 
 .gameRoomBox {
-  width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
+  margin-left: 5vw;
+  margin-top: 5vh;
+  width: 90vw;
   float: left;
-  border-width: 2px;
-  border-style: solid;
+  border: .5vw solid black;
+  color: white;
+
+  background: linear-gradient(270deg, gray, red);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
+}
+
+.gameRoomTitle {
+  border-bottom: .5vw solid black;
+  background-color:;
 }
 
 .leftCol {
   text-align: center;
-  width: 30%;
+  width: 29vw;
   float: left;
 }
 
 .middleCol {
   text-align: center;
-  width: 40%;
+  width: 31vw;
+  height: 50vh;
   float: left;
+  border-left: .54vw solid black;
+  border-right: .54vw solid black;
 }
 
 .rightCol {
   text-align: center;
-  width: 30%;
+  width: 29vw;
   float: left;
+}
+
+.gameRoomPic {
+  margin-left: 64vh;
+  
 }
 
 .profileContainer {  
