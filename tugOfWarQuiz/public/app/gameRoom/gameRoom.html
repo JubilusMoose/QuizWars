@@ -1,17 +1,20 @@
 <div class="gameRoomBox">
-  <div ng-controller="gameRoomController" class=leftCol>
-    <h3>{{ teamOneName }}</h3>
+  <div ng-controller="gameRoomController" class="leftCol column">
+    <h3 class="gameRoomTitle">{{ teamOneName }}</h3>
     <ul>
       <li ng-repeat="name in teamOne">{{ name }}</li>
     </ul>
   </div>
-  <div class="middleCol">
-    Game
+  <div class="middleCol column">
+    <h3 class="gameRoomTitle">Game</h3>
   </div>
-  <div class="rightCol">
-    <h3>{{ teamTwoName }}</h3>
+  <div class="rightCol column">
+    <h3 class="gameRoomTitle">{{ teamTwoName }}</h3>
     <ul>
       <li ng-repeat="name in teamTwo">{{ name }}</li>
     </ul>
   </div>
+</div>
+<div>
+  <img src="../../images/tugOfWarCartoon.jpeg" class="gameRoomPic">
 </div>
