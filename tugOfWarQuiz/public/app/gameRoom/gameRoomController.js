@@ -20,4 +20,17 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
       odd = !odd;
     }
   })
+
+  $scope.goToHomePage = () => {
+    $location.path('/home');
+    $rootScope.apply();
+  }
+
+  $scope.logout = () => { 
+    for(var x in $cookies.getAll()  ) { 
+      $cookies.remove(x); 
+    }
+
+    $location.path('/login');
+  }
 })
