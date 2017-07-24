@@ -116,59 +116,68 @@ module.exports = {
   joinRoom: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.joinRoom)`);
     console.log('req.body', req.body);
+    const name = req.body.name;
     const roomName = req.body.roomName;
     const userId = req.body.userId;
     
+    //Does game exist?
     new Game({ name: roomName })
     .fetch()
     .then((gameModel) => {
+      //If game doesn't exist
       if(!gameModel) {
-        console.log('room does not exist');
+        //Send back that game doesn't exist
         res.send('room does not exist');
       } else {
-        const game_id = gameModel.get('id');
-        new User({ id: userId })
+        //
+        const gameId = gameModel.get('id');
+        new JoinedGame({ 
+          user_id,
+          game_id 
+        })
         .fetch()
-        .then((userModel) => {
-          const user_id = userModel.get('id');
-          console.log('user fetched for user', user_id);
-          new JoinedGame({ 
-            user_id,
-            game_id 
-          })
-          .fetch()
-          .then((joinedGameModel) => {
-            if(!joinedGameModel && userId !== gameModel.get('creator')) {
-              new JoinedGame()
-              .save({
-                user_id,
-                game_id
-              })
-              .then((joinedGameModel2) => {
-                console.log('joinedGameModel2 id', joinedGameModel2);
-                new JoinedGame()
-                .where({ game_id })
-                .fetchAll()
-                .then((allGameModels) => {
-                  console.log('array of models', allGameModels.models);
-                  res.send(allGameModels.models);
-                })   
-              })
-            } else {
+        .then((joinedGameModel) => {
+          if(!joinedGameModel && userId !== gameModel.get('creator')) {
+            new JoinedGame()
+            .save({
+              user_id,
+              game_id
+            })
+            .then((joinedGameModel2) => {
+              console.log('joinedGameModel2 id', joinedGameModel2);
               new JoinedGame()
               .where({ game_id })
               .fetchAll()
               .then((allGameModels) => {
-                console.log('array of models', allGameModels.models);
-                if(allGameModels.models.length === 0) {
-                  res.send([{ game_id }])
-                } else {
-                  res.send(allGameModels.models);   
-                }
-              })
-            }
-          })
-        })  
+                new User()
+                .fetchAll()
+                .then((userModels) => {
+                  userModels.forEach((user) => {
+                    console.log('user id', user.get('id'));
+                    console.log('********** user_id', user_id);
+                    if(user.get('id') === allGameModels.get('user_id')) {
+                      console.log('username', user.get('name'));
+                    }
+                  })
+                  console.log('array of models', allGameModels.models);
+                  res.send(allGameModels.models);
+                })
+              })   
+            })
+          } else {
+            new JoinedGame()
+            .where({ game_id })
+            .fetchAll()
+            .then((allGameModels) => {
+              console.log('array of models', allGameModels.models);
+              if(allGameModels.models.length === 0) {
+                res.send([{ game_id }])
+              } else {
+                res.send(allGameModels.models);   
+              }
+            })
+          }
+        })
       }
     })
     .catch((err) => {

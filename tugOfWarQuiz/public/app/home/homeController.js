@@ -13,6 +13,7 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
   $scope.joinRoom = (roomName) => {
     axios.post('/joinRoom', {
       roomName,
+      name: $cookies.get('name'),
       userId: $cookies.get('id')
     })
     .then((resp) => {
