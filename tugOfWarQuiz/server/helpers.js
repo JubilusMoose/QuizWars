@@ -124,59 +124,31 @@ module.exports = {
     new Game({ name: roomName })
     .fetch()
     .then((gameModel) => {
+      console.log('gameModel', gameModel);
       //If game doesn't exist
       if(!gameModel) {
         //Send back that game doesn't exist
-        res.send('room does not exist');
+        res.send('room does not exist');   
+      //Otherwise, add user to joinedGame
       } else {
-        //
-        const gameId = gameModel.get('id');
-        new JoinedGame({ 
-          user_id,
-          game_id 
+        var gameId = gameModel.get('id');
+        new JoinedGame()
+        .where({ 
+          user_id: userId,
+          game_id: gameId
         })
-        .fetch()
-        .then((joinedGameModel) => {
-          if(!joinedGameModel && userId !== gameModel.get('creator')) {
-            new JoinedGame()
-            .save({
-              user_id,
-              game_id
-            })
-            .then((joinedGameModel2) => {
-              console.log('joinedGameModel2 id', joinedGameModel2);
-              new JoinedGame()
-              .where({ game_id })
-              .fetchAll()
-              .then((allGameModels) => {
-                new User()
-                .fetchAll()
-                .then((userModels) => {
-                  userModels.forEach((user) => {
-                    console.log('user id', user.get('id'));
-                    console.log('********** user_id', user_id);
-                    if(user.get('id') === allGameModels.get('user_id')) {
-                      console.log('username', user.get('name'));
-                    }
-                  })
-                  console.log('array of models', allGameModels.models);
-                  res.send(allGameModels.models);
-                })
-              })   
-            })
-          } else {
-            new JoinedGame()
-            .where({ game_id })
-            .fetchAll()
-            .then((allGameModels) => {
-              console.log('array of models', allGameModels.models);
-              if(allGameModels.models.length === 0) {
-                res.send([{ game_id }])
-              } else {
-                res.send(allGameModels.models);   
-              }
-            })
-          }
+        .save({ 
+          user_id: userId,
+          game_id: gameId
+        })
+        .then((savedJoinedGame) => {
+          //Find all of the names of the players in the joinedGame with the id of the game
+          new User()
+          .fetch({ withRelated: []})
+          .then((listOfGames) => {
+
+            console.log('listOfPlayerNames');
+          })
         })
       }
     })
@@ -186,3 +158,4 @@ module.exports = {
     })
   }
 }
+
