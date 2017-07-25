@@ -10,20 +10,14 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
       if(resp.data !== 'game already created') {
         const gameId = resp.data.id;
         $cookies.put('creator', $cookies.get('id'));
-        axios.post('/joinRoom', {
-          roomName: gameName,
-          userId: $cookies.get('id')
-        })
-        .then((resp) => {
-          console.log('resp', resp.data);
-          
-          /////////////////////////////////
-          ////// SEND TO JOIN ROOM ///////
-          ////////////////////////////////
+        console.log('resp', resp.data);
+        
+        /////////////////////////////////
+        ////// SEND TO JOIN ROOM ///////
+        ////////////////////////////////
 
-          $location.path('/home');
-          $rootScope.$apply()
-        }) 
+        $location.path('/home');
+        $rootScope.$apply()
       } else {
         console.log('game already created');
         let inputText = document.querySelectorAll('.newGameInput');
