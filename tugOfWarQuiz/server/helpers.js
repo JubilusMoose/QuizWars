@@ -129,27 +129,31 @@ module.exports = {
       if(!gameModel) {
         //Send back that game doesn't exist
         res.send('room does not exist');   
-      //Otherwise, add user to joinedGame
+      //Otherwise, add user to room
       } else {
         var gameId = gameModel.get('id');
-        new JoinedGame()
-        .where({ 
-          user_id: userId,
-          game_id: gameId
-        })
-        .save({ 
-          user_id: userId,
-          game_id: gameId
-        })
-        .then((savedJoinedGame) => {
-          //Find all of the names of the players in the joinedGame with the id of the game
-          new User()
-          .fetch({ withRelated: []})
-          .then((listOfGames) => {
-
-            console.log('listOfPlayerNames');
+        new User({ id: userId })
+        .save({ game_id: gameId }, { patch: true })
+        .then((user) => {
+          new JoinedGame()
+          .where({ 
+            user_id: userId,
+            game_id: gameId
           })
-        })
+          .save({ 
+            user_id: userId,
+            game_id: gameId
+          })
+          .then((savedJoinedGame) => {
+            //Find all of the names of the players in the joinedGame with the id of the game
+            new Game({ id: gameId })
+            .fetch({ withRelated: ['users']})
+            .then((allUsers) => {
+              console.log('listOfPlayerNames', allUsers.toJSON());
+              res.send(allUsers.toJSON());
+            })
+          })
+        })     
       }
     })
     .catch((err) => {

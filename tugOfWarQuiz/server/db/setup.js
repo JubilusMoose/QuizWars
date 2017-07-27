@@ -8,18 +8,19 @@ module.exports = {
     .dropTableIfExists('users_games')
     .dropTableIfExists('users')
     .dropTableIfExists('games')
+    // Games
+    .createTable('games', (table) => {
+      table.increments().primary();
+      table.string('name').unique();
+      table.string('creator');
+    })
     // Users
     .createTable('users', (table) => {
       table.increments().primary();
       table.string('email').unique();
       table.string('password');
       table.string('name');
-    })
-    // Games
-    .createTable('games', (table) => {
-      table.increments().primary();
-      table.string('name').unique();
-      table.string('creator');
+      table.integer('game_id').unsigned().references('games.id');
     })
     // JoinedGames
     .createTable('users_games', (table) => {
