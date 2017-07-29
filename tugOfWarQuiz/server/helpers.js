@@ -149,8 +149,8 @@ module.exports = {
             new Game({ id: gameId })
             .fetch({ withRelated: ['users']})
             .then((allUsers) => {
-              console.log('listOfPlayerNames', allUsers.toJSON().users);
-              res.send(allUsers.toJSON().users);
+              console.log('listOfPlayerNames', allUsers.toJSON());
+              res.send(allUsers.toJSON());
             })
           })
         })     

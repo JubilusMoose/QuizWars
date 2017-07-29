@@ -18,8 +18,9 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
     })
     .then((resp) => {
       if(resp.data !== 'room does not exist') {
-        $cookies.putObject('students', resp.data);
-        $cookies.put('currentGame', resp.data[0].game_id);
+        $cookies.putObject('students', resp.data.users);
+        $cookies.put('currentGame', resp.data.id);
+        $cookies.put('creatorId', resp.data.creator);
 
         $location.path('/gameRoom');
         $rootScope.$apply();
