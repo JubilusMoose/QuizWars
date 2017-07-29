@@ -12,12 +12,14 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   var odd = false;
 
   studentsArr.forEach((student) => {
-    if(!odd) {
-      $scope.teamOne.push(student.user_id);
-      odd = !odd;
-    } else {
-      $scope.teamTwo.push(student.user_id);
-      odd = !odd;
+    if($cookies.get('creatorId') !== student.id) {
+      if(!odd) {
+        $scope.teamOne.push(student.name);
+        odd = !odd;
+      } else {
+        $scope.teamTwo.push(student.name);
+        odd = !odd;
+      }
     }
   })
 
