@@ -6,7 +6,7 @@
   <div ng-controller="gameRoomController" class="leftCol column">
     <h3 class="gameRoomTitle">{{ teamOneName }}</h3>
     <ul>
-      <li ng-repeat="name in teamOne">{{ name }}</li>
+      <li ng-repeat="nameOne in teamOne track by $index">{{ nameOne }}</li>
     </ul>
   </div>
   <div class="middleCol column">
@@ -15,7 +15,7 @@
   <div class="rightCol column">
     <h3 class="gameRoomTitle">{{ teamTwoName }}</h3>
     <ul>
-      <li ng-repeat="name in teamTwo">{{ name }}</li>
+      <li ng-repeat="nameTwo in teamTwo track by $index">{{ nameTwo }}</li>
     </ul>
   </div>
 </div>
