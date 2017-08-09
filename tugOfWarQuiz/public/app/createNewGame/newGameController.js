@@ -1,4 +1,24 @@
 angular.module('tugOfWarApp').controller('newGameController', function($cookies, $rootScope, $scope, $location) {
+
+  $scope.addQuestion = () => {
+    $scope.questionNumber = $scope.questionNumber || 2;
+    let questionDiv = document.querySelector('.newGameQuestionDiv');
+    let newTitleP = document.createElement("P");
+    let newQuestionTextarea = document.createElement("Textarea");
+    let newAnswerTextarea = document.createElement("Textarea");
+    let question = document.createTextNode("Question " + $scope.questionNumber);
+
+    newTitleP.appendChild(question);
+    newQuestionTextarea.placeholder = "Insert Question Here";
+    newAnswerTextarea.placeholder = "Insert Answer Here";
+    
+    questionDiv.appendChild(newTitleP);
+    questionDiv.appendChild(newQuestionTextarea);
+    questionDiv.appendChild(newAnswerTextarea);
+
+    $scope.questionNumber++;
+  }
+
   $scope.createGame = (gameName) => {
     axios.post('/createGame', {
       gameName,
