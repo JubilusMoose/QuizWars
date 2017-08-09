@@ -247,8 +247,21 @@ li {
   animation: gradientChange 10s ease infinite;
 }
 
-.newGameInput {
+.newGameName {
   width: 75%;
+}
+
+textarea {
+  width: 75%;
+  height: 10vh;
+  text-align: left;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.newGameAnswer {
+  height: 3vh;
 }
 
 .newGameButton {
