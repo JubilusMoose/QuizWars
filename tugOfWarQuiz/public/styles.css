@@ -158,14 +158,16 @@ li {
 }
 
 .gameRoomTitle {
-  border-bottom: .5vw solid black;
+  border-bottom: .4vw solid black;
   background-color:;
+  margin-right: -8px;
 }
 
 .leftCol {
   text-align: center;
   width: 29vw;
   float: left;
+  margin: -1px;
 }
 
 .middleCol {
@@ -173,12 +175,14 @@ li {
   width: 31vw;
   height: 50vh;
   float: left;
-  border-left: .54vw solid black;
-  border-right: .54vw solid black;
+  margin: -1px;
+  border-left: .4vw solid black;
+  border-right: .4vw solid black;
 }
 
 .rightCol {
   text-align: center;
+  margin: -1px;
   width: 29vw;
   float: left;
 }
