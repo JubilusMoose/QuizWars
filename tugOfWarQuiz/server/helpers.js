@@ -83,6 +83,8 @@ module.exports = {
     console.log('req.body', req.body);
     const gameName = req.body.gameName;
     const creatorId = req.body.userId;
+    const questions = req.body.questions;
+    const answers = req.body.answers;
 
     new Game({ 
       name: gameName, 

@@ -8,7 +8,14 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
     let newAnswerTextarea = document.createElement("Textarea");
     let question = document.createTextNode("Question " + $scope.questionNumber);
 
+    // Add class to textareas
+    newQuestionTextarea.classList.add('newGameQuestion');
+    newAnswerTextarea.classList.add('newGameAnswer');
+
+    // Create Title
     newTitleP.appendChild(question);
+
+    // Add placeholders
     newQuestionTextarea.placeholder = "Insert Question Here";
     newAnswerTextarea.placeholder = "Insert Answer Here";
     
@@ -20,9 +27,26 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
   }
 
   $scope.createGame = (gameName) => {
+
+    // Get questions from form and send to server
+    var questions = [];
+    var getQuestions = document.querySelectorAll('.newGameQuestion');
+    getQuestions.forEach((question) => {
+      questions.push(question.value); 
+    })
+
+    // Get questions from form and send to server
+    var answers = [];
+    var getAnswers = document.querySelectorAll('.newGameAnswer');
+    getQAnswers.forEach((answer) => {
+      answers.push(answer.value); 
+    })
+
     axios.post('/createGame', {
       gameName,
-      userId: $cookies.get('id')
+      userId: $cookies.get('id'),
+      questions,
+      answers
     })
     .then((resp) => {
       console.log('resp data', resp.data);
@@ -31,13 +55,14 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
         const gameId = resp.data.id;
         $cookies.put('creator', $cookies.get('id'));
         console.log('resp', resp.data);
+
+        console.log('response from server', resp);
+        $location.path('/home');
+        $rootScope.$apply();
         
         /////////////////////////////////
         ////// SEND TO JOIN ROOM ///////
         ////////////////////////////////
-
-        $location.path('/home');
-        $rootScope.$apply()
       } else {
         console.log('game already created');
         let inputText = document.querySelectorAll('.newGameInput');
