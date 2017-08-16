@@ -1,6 +1,12 @@
 angular.module('tugOfWarApp').controller('newGameController', function($cookies, $rootScope, $scope, $location) {
 
   $scope.addQuestion = () => {
+
+    ///////////////////////////////////////////
+    // Need to allow creation of team names //
+    //////////////////////////////////////////
+
+    // Create new elements and nodes
     $scope.questionNumber = $scope.questionNumber || 2;
     let questionDiv = document.querySelector('.newGameQuestionDiv');
     let newTitleP = document.createElement("P");
@@ -19,10 +25,12 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
     newQuestionTextarea.placeholder = "Insert Question Here";
     newAnswerTextarea.placeholder = "Insert Answer Here";
     
+    // Put new question on page
     questionDiv.appendChild(newTitleP);
     questionDiv.appendChild(newQuestionTextarea);
     questionDiv.appendChild(newAnswerTextarea);
 
+    // Increase question number for next addQuestion call
     $scope.questionNumber++;
   }
 
@@ -42,6 +50,7 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
       answers.push(answer.value); 
     })
 
+    // Send game to server to be saved in DB
     axios.post('/createGame', {
       gameName,
       userId: $cookies.get('id'),
@@ -49,31 +58,29 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
       answers
     })
     .then((resp) => {
-      console.log('resp data', resp.data);
-      console.log('cookies.get(id)', $cookies.get('id'));
-      if(resp.data !== 'game already created') {
-        const gameId = resp.data.id;
-        $cookies.put('creator', $cookies.get('id'));
-        console.log('resp', resp.data);
 
-        console.log('response from server', resp);
+      // If game has not already been created
+      if(resp.data !== 'game already created') {
+        $cookies.put('creator', $cookies.get('id'));
+
         $location.path('/home');
         $rootScope.$apply();
-        
-        /////////////////////////////////
-        ////// SEND TO JOIN ROOM ///////
-        ////////////////////////////////
+      
+      // Game already exists
       } else {
-        console.log('game already created');
+
+        // Create elements
         let inputText = document.querySelectorAll('.newGameInput');
         let titleDiv = document.querySelector('.titleDiv');
         let para = document.createElement("P");
         let failMessage = document.createTextNode("Game Already Created");
         
+        // Reset values
         inputText.forEach((ele) => {
           ele.value = '';
         });
 
+        // Attach message
         para.appendChild(failMessage);
 
         if(titleDiv.childNodes[0].innerText !== "Game Already Created") {
@@ -86,11 +93,13 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
     })
   }
 
+  // Sends user to the homePage
   $scope.goToHomePage = () => {
     $location.path('/home');
     $rootScope.$apply();
   }
 
+  // Logs user out and removes cookies
   $scope.logout = () => { 
     for(var x in $cookies.getAll()  ) { 
       $cookies.remove(x); 

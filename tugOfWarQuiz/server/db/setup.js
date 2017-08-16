@@ -8,12 +8,14 @@ module.exports = {
     .dropTableIfExists('users_games')
     .dropTableIfExists('users')
     .dropTableIfExists('games')
+
     // Games
     .createTable('games', (table) => {
       table.increments().primary();
       table.string('name').unique();
       table.string('creator');
     })
+
     // Users
     .createTable('users', (table) => {
       table.increments().primary();
@@ -22,14 +24,16 @@ module.exports = {
       table.string('name');
       table.integer('game_id').unsigned().references('games.id');
     })
+
     // JoinedGames
     .createTable('users_games', (table) => {
       table.increments().primary();
       table.integer('user_id').unsigned().references('users.id');
       table.integer('game_id').unsigned().references('games.id');
     })
+      
+    // Create preset users
     .then(() => {
-      console.log('return new User');
       return new User({
         email: 'paul@aol.com',
         password: 'test',
@@ -61,6 +65,8 @@ module.exports = {
         return model.get('id');
       })
     })
+
+    // Create preset game
     .then((userId) => {
       console.log('return new Game', userId);
       return new Game({
@@ -71,6 +77,8 @@ module.exports = {
         return model.get('id');
       });
     })
+
+    // Send back result
     .then(() => {
       res.send('DB created');
     })
