@@ -1,7 +1,6 @@
 const headers = require('./headers');
 const { User, Game, JoinedGame } = require('./db/models');
 
-
 const sendResponse = (res, statusCode, headersSent, responseMessage) => {
   console.log(responseMessage);
   res.writeHead(statusCode, headersSent);
@@ -10,6 +9,7 @@ const sendResponse = (res, statusCode, headersSent, responseMessage) => {
 
 module.exports = {
 
+  // Signs up a new user
   signup: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.signup)`);
     const email = req.body.email;
@@ -36,6 +36,7 @@ module.exports = {
     })
   },
 
+  // Logs in a current user
   login: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.login)`);
     const email = req.body.email;
@@ -61,6 +62,7 @@ module.exports = {
     })
   },
 
+  // Changes a users name
   changeName: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.changeName)`);
     const email = req.body.email;
@@ -79,23 +81,30 @@ module.exports = {
     })
   },
 
+  // Creates a new game
   createGame: (req, res) => {
-    console.log('req.body', req.body);
+    // console.log('req.body', req.body);
+    // Set constants to body parts
     const gameName = req.body.gameName;
     const creatorId = req.body.userId;
     const questions = req.body.questions;
     const answers = req.body.answers;
 
+    // See if game exists with the same name
     new Game({ 
       name: gameName, 
     })
     .fetch()
     .then((gameModel) => {
-      console.log('gameModel in createGame', gameModel)
+      // console.log('gameModel in createGame', gameModel);
+
+      // If the game exists
       if(gameModel !== null) {
-        console.log('game already created')
+        // Tell front end game exists
+        console.log('game already created');
         res.send('game already created');
       } else {
+        // Create the game if it doesn't exist
         new Game({
           name: gameName, 
           creator: creatorId
@@ -115,6 +124,7 @@ module.exports = {
     })
   },
 
+  // Joins a current game
   joinRoom: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url} (helpers.joinRoom)`);
     console.log('req.body', req.body);
@@ -122,16 +132,19 @@ module.exports = {
     const roomName = req.body.roomName;
     const userId = req.body.userId;
     
-    //Does game exist?
+    // Does game exist?
     new Game({ name: roomName })
     .fetch()
     .then((gameModel) => {
-      console.log('gameModel', gameModel);
-      //If game doesn't exist
+      // console.log('gameModel', gameModel);
+
+      // If game doesn't exist
       if(!gameModel) {
+
         //Send back that game doesn't exist
         res.send('room does not exist');   
-      //Otherwise, add user to room
+
+      // Otherwise, add user to game
       } else {
         var gameId = gameModel.get('id');
         new User({ id: userId })
@@ -147,7 +160,8 @@ module.exports = {
             game_id: gameId
           })
           .then((savedJoinedGame) => {
-            //Find all of the names of the players in the joinedGame with the id of the game
+
+            // Find all of the names of the players in the joinedGame with the id of the game
             new Game({ id: gameId })
             .fetch({ withRelated: ['users']})
             .then((allUsers) => {
