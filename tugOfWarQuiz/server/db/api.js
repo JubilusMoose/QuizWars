@@ -1,5 +1,5 @@
 const headers = require('../headers');
-const { User, Game, JoinedGame } = require('./models');
+const { User, Game, JoinedGame, GameQuestions } = require('./models');
 
 const sendResponse = (res, statusCode, headersSent, responseMessage) => {
   console.log(responseMessage);
@@ -30,6 +30,14 @@ module.exports = {
     .fetchAll()
     .then((allJoinedGames) => {
       sendResponse(res, 200, headers, JSON.stringify(allJoinedGames));
+    })
+  },
+
+  retrieveAllGameQuestions: (req, res) => {
+    new GameQuestions()
+    .fetchAll()
+    .then((allGameQuestions) => {
+      sendResponse(res, 200, headers, JSON.stringify(allGameQuestions));
     })
   }
 }

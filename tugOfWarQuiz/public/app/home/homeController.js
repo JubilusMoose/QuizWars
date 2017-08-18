@@ -26,6 +26,7 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
 
         // Set cookies to the joined game
         $cookies.putObject('students', resp.data.users);
+        $cookies.putObject('questions', resp.data.questions);
         $cookies.put('currentGame', resp.data.id);
         $cookies.put('creatorId', resp.data.creator);
 

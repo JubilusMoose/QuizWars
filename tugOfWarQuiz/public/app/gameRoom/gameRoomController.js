@@ -1,15 +1,16 @@
 angular.module('tugOfWarApp').controller('gameRoomController', function($cookies, $rootScope, $scope, $location) {
   let gameId = $cookies.get('currentGame');
   let studentsArr = JSON.parse($cookies.get('students'));
+  let questions = JSON.parse($cookies.get('questions'));
 
   console.log('gameId', gameId);  
   console.log('students arr', studentsArr);
 
   //////////////////////////////////////////
   // Need to get team names from created //
-  //////////////////////////////////////////
   $scope.teamOneName = 'Pauls Team';
   $scope.teamTwoName = 'Jons Team';
+  //////////////////////////////////////////
 
   // Set up who is on each team
   $scope.teamOne = [];
@@ -17,9 +18,6 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   var odd = false;
 
   studentsArr.forEach((student) => {
-    // console.log('student', student);
-    // console.log('creatorId', $cookies.get('creatorId'));
-    // console.log('studentId', student.id);
 
     // Don't add creator on a team
     if($cookies.get('creatorId') !== student.id.toString()) {
@@ -42,6 +40,14 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
       }
     }
   })
+
+  //Display first question
+  $scope.question = questions[0].question;
+  console.log(questions[0].question);
+
+  $scope.submitAnswer = (answer) => {
+    console.log('answer', answer);
+  }
 
   // Sends user to home page
   $scope.goToHomePage = () => {

@@ -46,7 +46,7 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
     // Get questions from form and send to server
     var answers = [];
     var getAnswers = document.querySelectorAll('.newGameAnswer');
-    getQAnswers.forEach((answer) => {
+    getAnswers.forEach((answer) => {
       answers.push(answer.value); 
     })
 
