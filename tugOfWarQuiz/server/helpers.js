@@ -1,5 +1,5 @@
 const headers = require('./headers');
-const { User, Game, JoinedGame } = require('./db/models');
+const { User, Game, JoinedGame, GameQuestions } = require('./db/models');
 
 const sendResponse = (res, statusCode, headersSent, responseMessage) => {
   console.log(responseMessage);
@@ -90,6 +90,8 @@ module.exports = {
     const questions = req.body.questions;
     const answers = req.body.answers;
 
+    console.log('questions in server', questions);
+
     // See if game exists with the same name
     new Game({ 
       name: gameName, 
@@ -114,6 +116,15 @@ module.exports = {
           const gameId = gameModel.get('id');
           const gameName = gameModel.get('name');
           console.log('gameModel 2 in createGame', gameModel);
+
+          // Add questions to DB
+          questions.forEach((question) => {
+            new GameQuestions({
+              game_id: gameId,
+              question
+            }).save()
+          })
+
           res.send(gameModel.attributes);
         })
       }
@@ -163,10 +174,10 @@ module.exports = {
 
             // Find all of the names of the players in the joinedGame with the id of the game
             new Game({ id: gameId })
-            .fetch({ withRelated: ['users']})
-            .then((allUsers) => {
-              console.log('listOfPlayerNames', allUsers.toJSON());
-              res.send(allUsers.toJSON());
+            .fetch({ withRelated: ['users', 'questions']})
+            .then((allUsersAndQuestions) => {
+              console.log('listOfPlayerNames', allUsersAndQuestions.toJSON());
+              res.send(allUsersAndQuestions.toJSON());
             })
           })
         })     

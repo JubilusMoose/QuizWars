@@ -41,6 +41,10 @@ app.get('/allJoinedGames', (req, res) => {
   api.retrieveAllJoinedGames(req, res);
 })
 
+app.get('/allGameQuestions', (req, res) => {
+  api.retrieveAllGameQuestions(req, res);
+})
+
 // Calls from FE
 app.post('/signup', (req, res) => {
   console.log('save user to database', req.body);

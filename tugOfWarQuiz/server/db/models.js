@@ -19,6 +19,9 @@ models.Game = bookshelf.Model.extend({
   },
   joinedGame: function() {
     return this.hasMany(models.JoinedGame);
+  },
+  questions: function() {
+    return this.hasMany(models.GameQuestions);
   }
 });
 
@@ -31,5 +34,12 @@ models.JoinedGame = bookshelf.Model.extend({
     return this.belongsTo(models.Game);
   },
 });
+
+models.GameQuestions = bookshelf.Model.extend({
+  tableName: 'games_questions',
+  games: function() {
+    return this.belongsTo(models.Game);
+  }
+})
 
 module.exports = models;

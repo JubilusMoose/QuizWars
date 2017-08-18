@@ -1,10 +1,11 @@
 const knex = require('./db').knex;
-const { User, Game, JoinedGame } = require('./models');
+const { User, Game, JoinedGame, GameQuestions } = require('./models');
 
 module.exports = {
   resetDB: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url}`);
     knex.schema
+    .dropTableIfExists('games_questions')
     .dropTableIfExists('users_games')
     .dropTableIfExists('users')
     .dropTableIfExists('games')
@@ -30,6 +31,13 @@ module.exports = {
       table.increments().primary();
       table.integer('user_id').unsigned().references('users.id');
       table.integer('game_id').unsigned().references('games.id');
+    })
+
+    // GameQuestions
+    .createTable('games_questions', (table) => {
+      table.increments().primary();
+      table.integer('game_id').unsigned().references('games.id');
+      table.string('question');
     })
       
     // Create preset users
@@ -74,7 +82,13 @@ module.exports = {
         creator: userId
       })
       .save().then((model) => {
-        return model.get('id');
+        return new GameQuestions({
+          game_id: model.get('id'),
+          question: 'What is 1 + 1?'
+        })
+        .save().then((gameQuestionsModel) => {
+          return gameQuestionsModel.get('id');
+        })
       });
     })
 
