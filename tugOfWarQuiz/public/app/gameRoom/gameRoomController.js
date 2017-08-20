@@ -1,22 +1,24 @@
 angular.module('tugOfWarApp').controller('gameRoomController', function($cookies, $rootScope, $scope, $location) {
-  let gameId = $cookies.get('currentGame');
+  $scope.game = $cookies.get('currentGame');
+  $scope.teamOneName = $cookies.get('teamOne');
+  $scope.teamTwoName = $cookies.get('teamTwo');
+  
   let studentsArr = JSON.parse($cookies.get('students'));
   let questions = JSON.parse($cookies.get('questions'));
 
-  console.log('gameId', gameId);  
-  console.log('students arr', studentsArr);
-
-  //////////////////////////////////////////
-  // Need to get team names from created //
-  $scope.teamOneName = 'Pauls Team';
-  $scope.teamTwoName = 'Jons Team';
-  //////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////
+  // Need to set teams in DB and retrieve them from DB
 
   // Set up who is on each team
   $scope.teamOne = [];
   $scope.teamTwo = [];
-  var odd = false;
 
+  // Keeps track of points and how far the image is left or right
+  $scope.points = 0;
+
+
+  // Offsets each student
+  var odd = false;
   studentsArr.forEach((student) => {
 
     // Don't add creator on a team
@@ -40,6 +42,7 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
       }
     }
   })
+  /////////////////////////////////////////////////////////////////////
 
   //Display first question
   $scope.question = questions[0].question;

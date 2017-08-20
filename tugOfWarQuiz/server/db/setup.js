@@ -14,6 +14,8 @@ module.exports = {
     .createTable('games', (table) => {
       table.increments().primary();
       table.string('name').unique();
+      table.string('team_one');
+      table.string('team_two');
       table.string('creator');
     })
 
@@ -79,6 +81,8 @@ module.exports = {
       console.log('return new Game', userId);
       return new Game({
         name: 'My First Game',
+        team_one: 'Good Guys',
+        team_two: 'Bad Guys',
         creator: userId
       })
       .save().then((model) => {
