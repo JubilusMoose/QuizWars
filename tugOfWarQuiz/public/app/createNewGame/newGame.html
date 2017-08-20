@@ -3,13 +3,15 @@
     <div ng-controller="newGameController">
       <h3 class="title">Create A New Game</h3></br>
         <input type="text" ng-model="gameName" class="newGameName" placeholder="Enter Game Name">
+        <input type="text" ng-model="teamOne" class="newGameTeamOne" placeholder="Enter Team One's Name">
+        <input type="text" ng-model="teamTwo" class="newGameTeamTwo" placeholder="Enter Team Two's Name">
       <div class="newGameQuestionDiv">
         <p> Question 1 </p>
         <textarea type="text" ng-model="newGameQuestion" class=newGameQuestion placeholder="Insert Question Here"></textarea> 
         <textarea type="text" ng-model="newGameAnswer" class=newGameAnswer placeholder="Insert Answer Here"></textarea> 
       </div>
       <button ng-click="addQuestion()" class="newGameButton">Add Question</button>
-      <button ng-click="createGame(gameName)" class="newGameButton">Create Game</button>
+      <button ng-click="createGame(gameName, teamOne, teamTwo)" class="newGameButton">Create Game</button>
       <button ng-click="goToHomePage()" class="newGameButton">Home Page</button>
       <button ng-click="logout()" class="newGameButton">Log Out</button>
     </div>

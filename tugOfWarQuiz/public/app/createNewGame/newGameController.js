@@ -34,7 +34,7 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
     $scope.questionNumber++;
   }
 
-  $scope.createGame = (gameName) => {
+  $scope.createGame = (gameName, teamOne, teamTwo) => {
 
     // Get questions from form and send to server
     var questions = [];
@@ -54,6 +54,8 @@ angular.module('tugOfWarApp').controller('newGameController', function($cookies,
     axios.post('/createGame', {
       gameName,
       userId: $cookies.get('id'),
+      teamOne,
+      teamTwo,
       questions,
       answers
     })

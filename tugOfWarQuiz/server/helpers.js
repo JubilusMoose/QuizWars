@@ -87,6 +87,8 @@ module.exports = {
     // Set constants to body parts
     const gameName = req.body.gameName;
     const creatorId = req.body.userId;
+    const teamOne = req.body.teamOne;
+    const teamTwo = req.body.teamTwo;
     const questions = req.body.questions;
     const answers = req.body.answers;
 
@@ -109,6 +111,8 @@ module.exports = {
         // Create the game if it doesn't exist
         new Game({
           name: gameName, 
+          team_one: teamOne,
+          team_two: teamTwo,
           creator: creatorId
         })
         .save()
