@@ -2,7 +2,7 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   $scope.game = $cookies.get('currentGame');
   $scope.teamOneName = $cookies.get('teamOne');
   $scope.teamTwoName = $cookies.get('teamTwo');
-  
+
   let studentsArr = JSON.parse($cookies.get('students'));
   let questions = JSON.parse($cookies.get('questions'));
 
@@ -20,7 +20,6 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   // Offsets each student
   var odd = false;
   studentsArr.forEach((student) => {
-
     // Don't add creator on a team
     if($cookies.get('creatorId') !== student.id.toString()) {
       if(!odd) {
@@ -42,26 +41,39 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
       }
     }
   })
+
+  if($cookies.get('creatorId') === $cookies.get('id')) {
+    $scope.creator = false;
+  } else {
+    $scope.creator = true;
+  }
+
   /////////////////////////////////////////////////////////////////////
-
   //Display first question
-  $scope.question = questions[0].question;
-  console.log(questions[0].question);
+  var questionNumber = 0;
+  $scope.question = questions[questionNumber].question;
 
+  // Submits an answer
   $scope.submitAnswer = (answer) => {
     console.log('answer', answer);
+  }
+  /////////////////////////////////////////////////////////////////////
+
+
+  // Allows creator to go to the next question
+  $scope.nextQuestion = () => {
+    $scope.question = questions[questionNumber++].question;
   }
 
   // Sends user to home page
   $scope.goToHomePage = () => {
     $location.path('/home');
-    $rootScope.apply();
   }
 
   // Logs user out and erases cookies
-  $scope.logout = () => { 
-    for(var x in $cookies.getAll()  ) { 
-      $cookies.remove(x); 
+  $scope.logout = () => {
+    for(var x in $cookies.getAll()  ) {
+      $cookies.remove(x);
     }
 
     $location.path('/login');
