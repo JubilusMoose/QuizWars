@@ -11,10 +11,15 @@
   </div>
   <div class="middleCol column">
     <h3 class="gameRoomTitle">{{ game }}</h3></br>
-    <h3 class="questionTitle">Question 1</h3></br>
-    <p>{{ question }}</p></br>
-    <input type="text" class="gameRoomAnswerInput" ng-model="answer" placeholder="Answer Here">
-    <button type="submit" class="profileButton changeNameButton" ng-click="submitAnswer(answer)">Submit</button>
+      <h3 class="questionTitle">Question 1</h3></br>
+      <p>{{ question }}</p></br>
+    <div ng-show="creator" class="ng-hide">
+      <input type="text" class="gameRoomAnswerInput" ng-model="answer" placeholder="Answer Here">
+      <button type="submit" class="profileButton changeNameButton" ng-click="submitAnswer(answer)">Submit</button>
+    </div>
+    <div ng-hide="creator" class="ng-show">
+      <button type="submit" class="profileButton changeNameButton" ng-click="nextQuestion()">Next Question</button>
+    </div>
   </div>
   <div class="rightCol column">
     <h3 class="gameRoomTitle">{{ teamTwoName }}</h3>
