@@ -1,4 +1,4 @@
-angular.module('tugOfWarApp').controller('gameRoomController', function($cookies, $rootScope, $scope, $location) {
+angular.module('tugOfWarApp').controller('gameRoomController', function($cookies, $timeout, $rootScope, $scope, $location) {
   $scope.game = $cookies.get('currentGame');
   $scope.teamOneName = $cookies.get('teamOne');
   $scope.teamTwoName = $cookies.get('teamTwo');
@@ -62,7 +62,10 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
 
   // Allows creator to go to the next question
   $scope.nextQuestion = () => {
-    $scope.question = questions[questionNumber++].question;
+    questionNumber++;
+    if (questions[questionNumber]) {
+      $scope.question = questions[questionNumber].question;
+    }
   }
 
   // Sends user to home page
