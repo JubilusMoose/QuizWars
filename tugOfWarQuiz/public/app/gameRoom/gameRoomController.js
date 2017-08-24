@@ -6,16 +6,12 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   let studentsArr = JSON.parse($cookies.get('students'));
   let questions = JSON.parse($cookies.get('questions'));
 
-  /////////////////////////////////////////////////////////////////////
-  // Need to set teams in DB and retrieve them from DB
-
   // Set up who is on each team
   $scope.teamOne = [];
   $scope.teamTwo = [];
 
   // Keeps track of points and how far the image is left or right
   $scope.points = 0;
-
 
   // Offsets each student
   var odd = false;
@@ -42,20 +38,25 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
     }
   })
 
-  if($cookies.get('creatorId') === $cookies.get('id')) {
+  if($cookies.get('creatorId') !== $cookies.get('id')) {
     $scope.creator = false;
   } else {
     $scope.creator = true;
   }
 
-  /////////////////////////////////////////////////////////////////////
   //Display first question
   var questionNumber = 0;
   $scope.question = questions[questionNumber].question;
 
+  /////////////////////////////////////////////////////////////////////
   // Submits an answer
   $scope.submitAnswer = (answer) => {
-    console.log('answer', answer);
+    console.log('cookies', $cookies.getAll());
+    axios.post('/answer', {
+      answer,
+      game: $scope.game,
+      user: $cookies.get('id')
+    })
   }
   /////////////////////////////////////////////////////////////////////
 

@@ -191,6 +191,10 @@ module.exports = {
       console.log('error in joinRoom', err);
       res.send('error in joinRoom');
     })
+  },
+
+  answer: (req, res) => {
+    console.log('answer request in helpers');
   }
 }
 
