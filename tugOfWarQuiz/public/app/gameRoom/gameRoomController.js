@@ -53,9 +53,23 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   $scope.submitAnswer = (answer) => {
     console.log('cookies', $cookies.getAll());
     axios.post('/answer', {
+      question: $scope.question,
       answer,
       game: $scope.game,
       user: $cookies.get('id')
+    })
+    .then((resp) => {
+      console.log('response', resp.data);
+      if (resp.data === 'correct') {
+        // Move tug of war rope towards their team
+        $scope.rope = $scope.rope || '40vw';
+        console.log('rope', $scope.rope);
+        $scope.currMarginLeft = $scope.currMarginLeft || $scope.rope.slice(0, $scope.rope.indexOf('v'));
+        $scope.currMarginLeft -= 5;
+        console.log('currMarginLeft', Number($scope.currMarginLeft))
+        $scope.rope = $scope.currMarginLeft + 'vw';
+        document.getElementsByClassName('gameRoomPic')[0].style.marginLeft = $scope.rope;
+      }
     })
   }
   /////////////////////////////////////////////////////////////////////

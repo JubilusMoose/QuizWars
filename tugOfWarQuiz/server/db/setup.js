@@ -5,6 +5,7 @@ module.exports = {
   resetDB: (req, res) => {
     console.log(`Serving ${req.method} request for ${req.url}`);
     knex.schema
+    .dropTableIfExists('games_answers')
     .dropTableIfExists('games_questions')
     .dropTableIfExists('users_games')
     .dropTableIfExists('users')
@@ -40,6 +41,7 @@ module.exports = {
       table.increments().primary();
       table.integer('game_id').unsigned().references('games.id');
       table.string('question');
+      table.string('answer');
     })
       
     // Create preset users
@@ -88,7 +90,8 @@ module.exports = {
       .save().then((model) => {
         return new GameQuestions({
           game_id: model.get('id'),
-          question: 'What is 1 + 1?'
+          question: 'What is 1 + 1?',
+          answer: '2'
         })
         .save().then((gameQuestionsModel) => {
           return gameQuestionsModel.get('id');
