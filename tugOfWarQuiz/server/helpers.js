@@ -93,6 +93,7 @@ module.exports = {
     const answers = req.body.answers;
 
     console.log('questions in server', questions);
+    console.log('answers in server', answers);
 
     // See if game exists with the same name
     new Game({ 
@@ -122,12 +123,13 @@ module.exports = {
           console.log('gameModel 2 in createGame', gameModel);
 
           // Add questions to DB
-          questions.forEach((question) => {
+          for(let i = 0; i < questions.length; i++) {
             new GameQuestions({
               game_id: gameId,
-              question
+              question: questions[i], 
+              answer: answers[i]
             }).save()
-          })
+          }
 
           res.send(gameModel.attributes);
         })
@@ -190,6 +192,51 @@ module.exports = {
     .catch((err) => {
       console.log('error in joinRoom', err);
       res.send('error in joinRoom');
+    })
+  },
+
+  answer: (req, res) => {
+    console.log('answer request in helpers');
+    var question = req.body.question;
+    const answer = req.body.answer;
+    const game = req.body.game;
+    const user = req.body.user;
+
+    new Game({ name: game })
+    .fetch()
+    .then((gameModel) => {
+
+      // If game doesn't exist
+      if(!gameModel) {
+
+        //Send back that game doesn't exist
+        res.send('room does not exist');   
+
+      // Otherwise, find correct answer for the question
+      } else {
+        var gameId = gameModel.get('id');
+        // Find answer to question
+        new Game({ id: gameId })
+        .fetch({ withRelated: ['questions']})
+        .then((allQuestionsAndAnswers) => {
+          console.log('list of Answers and Questions', allQuestionsAndAnswers.toJSON().questions);
+          allQuestionsAndAnswers.toJSON().questions.forEach((questionSet) => {
+            if (questionSet.question === question) {
+              if (questionSet.answer === answer) {
+                console.log('correct answer');
+                res.send('correct');
+              } else {
+                console.log('wrong answer')
+                res.send('incorrect');
+              }
+            }
+          })
+
+        })
+
+      }
+
+      // Send back correct answer
     })
   }
 }

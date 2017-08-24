@@ -6,16 +6,12 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   let studentsArr = JSON.parse($cookies.get('students'));
   let questions = JSON.parse($cookies.get('questions'));
 
-  /////////////////////////////////////////////////////////////////////
-  // Need to set teams in DB and retrieve them from DB
-
   // Set up who is on each team
   $scope.teamOne = [];
   $scope.teamTwo = [];
 
   // Keeps track of points and how far the image is left or right
   $scope.points = 0;
-
 
   // Offsets each student
   var odd = false;
@@ -42,20 +38,39 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
     }
   })
 
-  if($cookies.get('creatorId') === $cookies.get('id')) {
+  if($cookies.get('creatorId') !== $cookies.get('id')) {
     $scope.creator = false;
   } else {
     $scope.creator = true;
   }
 
-  /////////////////////////////////////////////////////////////////////
   //Display first question
   var questionNumber = 0;
   $scope.question = questions[questionNumber].question;
 
+  /////////////////////////////////////////////////////////////////////
   // Submits an answer
   $scope.submitAnswer = (answer) => {
-    console.log('answer', answer);
+    console.log('cookies', $cookies.getAll());
+    axios.post('/answer', {
+      question: $scope.question,
+      answer,
+      game: $scope.game,
+      user: $cookies.get('id')
+    })
+    .then((resp) => {
+      console.log('response', resp.data);
+      if (resp.data === 'correct') {
+        // Move tug of war rope towards their team
+        $scope.rope = $scope.rope || '40vw';
+        console.log('rope', $scope.rope);
+        $scope.currMarginLeft = $scope.currMarginLeft || $scope.rope.slice(0, $scope.rope.indexOf('v'));
+        $scope.currMarginLeft -= 5;
+        console.log('currMarginLeft', Number($scope.currMarginLeft))
+        $scope.rope = $scope.currMarginLeft + 'vw';
+        document.getElementsByClassName('gameRoomPic')[0].style.marginLeft = $scope.rope;
+      }
+    })
   }
   /////////////////////////////////////////////////////////////////////
 

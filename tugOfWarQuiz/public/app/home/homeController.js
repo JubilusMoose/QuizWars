@@ -1,5 +1,5 @@
 angular.module('tugOfWarApp').controller('homeController', function($cookies, $rootScope, $scope, $location) {
-  
+
   //Set default name to Friend
   if($cookies.get('name') === 'null' || !$cookies.get('name')) {
     $scope.name = 'Friend'
@@ -23,6 +23,7 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
     .then((resp) => {
       //Check if game exists
       if(resp.data !== 'room does not exist') {
+        console.log('resp.data', resp.data);
 
         // Set cookies to the joined game
         $cookies.putObject('students', resp.data.users);
@@ -43,7 +44,7 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
         let footerDiv = document.querySelector('.footerDiv');
         let para = document.createElement("P");
         let failMessage = document.createTextNode("Game Does Not Exist");
-        
+
         inputText.forEach((ele) => {
           ele.value = '';
         });
@@ -66,9 +67,9 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
   }
 
   // Logs user out and erases cookies
-  $scope.logout = () => { 
-    for(var x in $cookies.getAll()  ) { 
-      $cookies.remove(x); 
+  $scope.logout = () => {
+    for(var x in $cookies.getAll()  ) {
+      $cookies.remove(x);
     }
 
     $location.path('/login');

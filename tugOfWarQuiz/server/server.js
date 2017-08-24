@@ -76,6 +76,11 @@ app.post('/joinRoom', (req, res) => {
   helpers.joinRoom(req, res);
 });
 
+app.post('/answer', (req, res) => {
+  console.log('post request to answer with body: ', req.body);
+  helpers.answer(req, res);
+});
+
 app.get('*', (req, res) => {
   res.render('index.html');
 });
