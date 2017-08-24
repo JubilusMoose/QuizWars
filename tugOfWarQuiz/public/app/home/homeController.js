@@ -32,6 +32,7 @@ angular.module('tugOfWarApp').controller('homeController', function($cookies, $r
         $cookies.put('teamOne', resp.data.team_one);
         $cookies.put('teamTwo', resp.data.team_two);
         $cookies.put('creatorId', resp.data.creator);
+        $cookies.put('ropePosition', resp.data['rope_position']);
 
         // Send user to the game
         $location.path('/gameRoom');

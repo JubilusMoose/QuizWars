@@ -48,31 +48,45 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
   var questionNumber = 0;
   $scope.question = questions[questionNumber].question;
 
-  /////////////////////////////////////////////////////////////////////
+  // Set "rope" image position
+  document.getElementsByClassName('gameRoomPic')[0].style.marginLeft = $cookies.get('ropePosition') + 'vw';
+
   // Submits an answer
   $scope.submitAnswer = (answer) => {
     console.log('cookies', $cookies.getAll());
+
+    // Find team number
+    if ($scope.teamOne.indexOf($cookies.get('name')) >= 0) {
+      var team = 1;
+    } else {
+      var team = 2;
+    }
+
     axios.post('/answer', {
       question: $scope.question,
       answer,
       game: $scope.game,
-      user: $cookies.get('id')
+      user: $cookies.get('id'),
+      team
     })
     .then((resp) => {
       console.log('response', resp.data);
-      if (resp.data === 'correct') {
-        // Move tug of war rope towards their team
-        $scope.rope = $scope.rope || '40vw';
-        console.log('rope', $scope.rope);
-        $scope.currMarginLeft = $scope.currMarginLeft || $scope.rope.slice(0, $scope.rope.indexOf('v'));
-        $scope.currMarginLeft -= 5;
-        console.log('currMarginLeft', Number($scope.currMarginLeft))
-        $scope.rope = $scope.currMarginLeft + 'vw';
-        document.getElementsByClassName('gameRoomPic')[0].style.marginLeft = $scope.rope;
+      // Move tug of war rope towards their team
+      $scope.rope = resp.data['rope_position'] + 'vw';
+      console.log('scope.rope', $scope.rope);
+      document.getElementsByClassName('gameRoomPic')[0].style.marginLeft = $scope.rope;
+
+      // Displays next question
+      questionNumber++;
+      console.log('questionNumber', questionNumber);
+      console.log('questions', questions);
+      if (questions[questionNumber]) {
+        console.log('here');
+        $scope.question = questions[questionNumber].question;
+        $scope.$apply();
       }
     })
   }
-  /////////////////////////////////////////////////////////////////////
 
 
   // Allows creator to go to the next question

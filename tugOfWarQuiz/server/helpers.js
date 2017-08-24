@@ -182,7 +182,7 @@ module.exports = {
             new Game({ id: gameId })
             .fetch({ withRelated: ['users', 'questions']})
             .then((allUsersAndQuestions) => {
-              console.log('listOfPlayerNames', allUsersAndQuestions.toJSON());
+              console.log('allUsersAndQuestions', allUsersAndQuestions.toJSON());
               res.send(allUsersAndQuestions.toJSON());
             })
           })
@@ -201,6 +201,7 @@ module.exports = {
     const answer = req.body.answer;
     const game = req.body.game;
     const user = req.body.user;
+    const team = req.body.team;
 
     new Game({ name: game })
     .fetch()
@@ -224,7 +225,26 @@ module.exports = {
             if (questionSet.question === question) {
               if (questionSet.answer === answer) {
                 console.log('correct answer');
-                res.send('correct');
+                //Find the correct game
+                new Game({ id: gameId })
+                .fetch()
+                .then((gameModel1) => {
+                  // Find current rope position
+                  console.log('gameModel1', gameModel1.toJSON()['rope_position']);
+                  if (team === 1) {
+                    var newRopePosition = gameModel1.toJSON()['rope_position'] - 5;
+                  } else {
+                    var newRopePosition = gameModel1.toJSON()['rope_position'] + 5;
+                  }
+
+                  // Update the rope position
+                  new Game({ id: gameId })
+                  .save({'rope_position': newRopePosition}, { patch: true })
+                  .then((gameModel) => {
+                    console.log('gameModel in answer', gameModel.toJSON())
+                    res.send(gameModel.toJSON());
+                  })
+                })
               } else {
                 console.log('wrong answer')
                 res.send('incorrect');
