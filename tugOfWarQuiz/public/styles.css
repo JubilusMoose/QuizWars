@@ -199,6 +199,17 @@ li {
   animation: gradientChange 10s ease infinite;
 }
 
+.gameRoomSubmitButton {
+  width: 50%;
+  margin: 5px;
+  background: linear-gradient(270deg, black, purple);
+  background-size: 400% 400%;
+
+  -webkit-animation: gradientChange 10s ease infinite;
+  -moz-animation: gradientChange 10s ease infinite;
+  animation: gradientChange 10s ease infinite;
+}
+
 .gameRoomImageContainer {
   height: 50vh;
   width: 100vw;

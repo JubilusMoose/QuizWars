@@ -15,10 +15,10 @@
       <p>{{ question }}</p></br>
     <div ng-hide="creator" class="ng-show">
       <input type="text" class="gameRoomAnswerInput" ng-model="answer" placeholder="Answer Here">
-      <button type="submit" class="profileButton changeNameButton" ng-click="submitAnswer(answer)">Submit</button>
+      <button type="submit" class="gameRoomSubmitButton" ng-click="submitAnswer(answer)">Submit</button>
     </div>
     <div ng-show="creator" class="ng-hide">
-      <button type="submit" class="profileButton changeNameButton" ng-click="nextQuestion()">Next Question</button>
+      <button type="submit" class="gameRoomSubmitButton" ng-click="nextQuestion()">Next Question</button>
     </div>
   </div>
   <div class="rightCol column">

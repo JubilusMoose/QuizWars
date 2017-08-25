@@ -84,7 +84,15 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
         console.log('here');
         $scope.question = questions[questionNumber].question;
         $scope.$apply();
-      }
+      } else {
+        $scope.question = 'Quiz Complete!';
+        document.querySelector('.gameRoomAnswerInput').style.display = "none";
+        document.querySelector('.gameRoomSubmitButton').style.display = "none";
+        $scope.$apply();
+      } 
+
+      // Make answer box empty
+      document.querySelector('.gameRoomAnswerInput').value = '';
     })
   }
 
@@ -94,6 +102,9 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
     questionNumber++;
     if (questions[questionNumber]) {
       $scope.question = questions[questionNumber].question;
+    } else {
+      $scope.question = 'Quiz Complete!'
+      document.querySelectorAll('.gameRoomSubmitButton')[1].style.display = "none";
     }
   }
 
