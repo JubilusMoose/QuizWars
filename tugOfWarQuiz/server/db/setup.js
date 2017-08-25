@@ -17,6 +17,7 @@ module.exports = {
       table.string('name').unique();
       table.string('team_one');
       table.string('team_two');
+      table.integer('rope_position');
       table.string('creator');
     })
 
