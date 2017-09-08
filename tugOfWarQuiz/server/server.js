@@ -81,6 +81,11 @@ app.post('/answer', (req, res) => {
   helpers.answer(req, res);
 });
 
+app.post('/seeAnswer', (req, res) => {
+  console.log('post request to seeAnswer with body: ', req.body);
+  helpers.seeAnswer(req, res);
+});
+
 app.get('*', (req, res) => {
   res.render('index.html');
 });

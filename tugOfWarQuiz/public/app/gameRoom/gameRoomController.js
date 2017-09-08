@@ -99,13 +99,28 @@ angular.module('tugOfWarApp').controller('gameRoomController', function($cookies
 
   // Allows creator to go to the next question
   $scope.nextQuestion = () => {
+    $scope.answer = '';
     questionNumber++;
     if (questions[questionNumber]) {
       $scope.question = questions[questionNumber].question;
     } else {
       $scope.question = 'Quiz Complete!'
       document.querySelectorAll('.gameRoomSubmitButton')[1].style.display = "none";
+      document.querySelectorAll('.gameRoomSubmitButton')[2].style.display = "none";
     }
+  }
+
+  // Allows creator to see the answer
+  $scope.seeAnswer = () => {
+    axios.post('/seeAnswer', {
+      game: $scope.game,
+      question: questions[questionNumber].question
+    })
+    .then((resp) => {
+      console.log(resp.data);
+      $scope.answer = resp.data;
+      $scope.$apply();
+    })
   }
 
   // Sends user to home page

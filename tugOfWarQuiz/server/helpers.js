@@ -251,12 +251,41 @@ module.exports = {
               }
             }
           })
-
         })
+      }
+    })
+  },
 
+  seeAnswer: (req, res) => {
+    const question = req.body.question;
+    const game = req.body.game;
+
+    new Game({ name: game})
+    .fetch()
+    .then((gameModel) => {
+      // If game doesn't exist
+      if(!gameModel) {
+
+        //Send back that game doesn't exist
+        res.send('room does not exist');   
+
+      // Otherwise, find correct answer for the question
+      } else {
+        var gameId = gameModel.get('id');
+        // Find answer to question
+        new Game({ id: gameId })
+        .fetch({ withRelated: ['questions']})
+        .then((allQuestionsAndAnswers) => {
+          console.log('list of Answers and Questions', allQuestionsAndAnswers.toJSON().questions);
+          allQuestionsAndAnswers.toJSON().questions.forEach((questionSet) => {
+            if (questionSet.question === question) {
+              console.log('answer', questionSet.answer);
+              res.send(questionSet.answer);
+            }
+          })
+        })
       }
 
-      // Send back correct answer
     })
   }
 }
