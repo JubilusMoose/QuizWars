@@ -18,7 +18,9 @@
       <button type="submit" class="gameRoomSubmitButton" ng-click="submitAnswer(answer)">Submit</button>
     </div>
     <div ng-show="creator" class="ng-hide">
-      <button type="submit" class="gameRoomSubmitButton" ng-click="nextQuestion()">Next Question</button>
+      <button type="submit" class="gameRoomSubmitButton" ng-click="nextQuestion()">Next Question</button></br>
+      <button type="submit" class="gameRoomSubmitButton" ng-click="seeAnswer()">See Answer</button>
+      <p>{{ answer }}</p>
     </div>
   </div>
   <div class="rightCol column">
